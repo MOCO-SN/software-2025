@@ -100,33 +100,66 @@ db.ref('apps').on('value', snapshot => {
 
 function renderApps(apps) {
   appGallery.innerHTML = '';
+
   Object.entries(apps).forEach(([key, app]) => {
-    const iconUrl = app.iconUrl && app.iconUrl.trim() !== '' ? app.iconUrl : 'https://via.placeholder.com/100x100?text=No+Image';
+    const iconUrl = app.iconUrl && app.iconUrl.trim() !== ''
+      ? app.iconUrl
+      : 'https://via.placeholder.com/100x100?text=No+Image';
+
     const appCard = document.createElement('div');
     appCard.classList.add('app-card');
+
     appCard.innerHTML = `
-      <img class="cardimg" src="${iconUrl}" alt="${app.name}" onerror="this.src='https://demofree.sirv.com/nope-not-here.jpg'">
+      <img class="cardimg" src="${iconUrl}" alt="${app.name}"
+           onerror="this.src='https://demofree.sirv.com/nope-not-here.jpg'">
+
       <div class="infomain">
         <h3>${app.name}</h3>
         <p>${app.description}</p>
       </div>
+
       <div class="app-info">
         <span>Category: ${app.category || '-'}</span>
         <span>Developer: ${app.developer || '-'}</span>
         <span>Version: ${app.version || '-'}</span>
         <span>Size: ${app.size || '-'}</span>
-        <span><a href="${app.apkUrl}" target="_blank"><button class="Downloadbtn">Download</button></a></span>
+        <span>
+          <a href="${app.apkUrl}" target="_blank">
+            <button class="Downloadbtn">Download</button>
+          </a>
+        </span>
       </div>
+
       <div class="app-footer">
-        <span>👁 ${app.views}</span>
-        <span class="like-btn ${app.likes > 0 ? 'liked' : ''}" data-key="${key}">❤️ ${app.likes}</span>
+        <span>👁 ${app.views || 0}</span>
+        <span class="like-btn ${app.likes > 0 ? 'liked' : ''}" data-key="${key}">
+          ❤️ ${app.likes || 0}
+        </span>
       </div>
     `;
-    appCard.addEventListener('click', () => db.ref('apps/' + key + '/views').transaction(v => (v || 0) + 1));
+
+    // 👉 Card click = view count + redirect
+    appCard.addEventListener('click', () => {
+      db.ref('apps/' + key + '/views')
+        .transaction(v => (v || 0) + 1);
+
+      if (app.apkUrl) {
+        window.open(app.apkUrl, '_blank');
+      }
+    });
+
+    // ❤️ Like button (no redirect)
     appCard.querySelector('.like-btn').addEventListener('click', e => {
       e.stopPropagation();
-      db.ref('apps/' + key + '/likes').transaction(v => (v || 0) + 1);
+      db.ref('apps/' + key + '/likes')
+        .transaction(v => (v || 0) + 1);
     });
+
+    // ⬇ Download button (no double redirect)
+    appCard.querySelector('.Downloadbtn').addEventListener('click', e => {
+      e.stopPropagation();
+    });
+
     appGallery.appendChild(appCard);
   });
 }

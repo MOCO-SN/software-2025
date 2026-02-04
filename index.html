@@ -12,6 +12,9 @@
 
 <body>
 
+<!-- App Gallery -->
+ 
+
    <div class="overlay" id="overlay">
     <div class="alert-box">
       <h2 class="h2">Notifications !</h2>
@@ -19,26 +22,41 @@
       <p class="info">This website is Made By <b>Sachin.</b><br>
         It contain Free Moded Apps.<br>
         Which you can use for free.
-        <br>UI Version V7.1
+        <br>UI Version V8.1
       </p>
       <hr><button class="btnok" id="okBtn">OK</button>
       <button class="btnupdate" id="updateBtn">Contact</button>
     </div>
   </div>
 <!-- Top Navigation -->
-<div class="top_nav">
-  <div class="logo">
-    <span class="text">MocoStore</span>
-  </div>
-  <div class="options">
-    <input type="text" id="searchInput" placeholder="Search apps..." />
-    <button id="openUpload">Upload App</button>
-  </div>
-</div>
+    <div class="nav-container">
+        <div class="top-nav">
+            <!-- Logo -->
+            <div class="logo">
+                <i class="fas fa-cube logo-icon"></i>
+                <div class="logo-text">Moco<span>Store</span></div>
+            </div>
 
-<!-- App Gallery -->
+            <!-- Search -->
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input 
+                    type="text" 
+                    class="search-box" 
+                    placeholder="Search apps, games, tools..."
+                    id="searchInput"
+                >
+            </div>
+
+            <!-- Action Button -->
+            <button class="action-btn" id="openUpload">
+                <i class="fas fa-cloud-upload-alt btn-icon"></i>
+                <span>Upload App</span>
+            </button>
+        </div>
+    </div>
+ 
 <div id="appGallery"></div>
-
 <!-- Upload Modal -->
 <div id="uploadModal" class="modal">
   <div class="modal-content">
