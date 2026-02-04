@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SACHINSOFT || MAIN</title>
+  <link rel="icon" href="icon.jpg">
+  <link rel="stylesheet" href="./css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+   <div class="overlay" id="overlay">
+    <div class="alert-box">
+      <h2 class="h2">Notifications !</h2>
+      <hr>
+      <p class="info">This website is Made By <b>Sachin.</b><br>
+        It contain Free Moded Apps.<br>
+        Which you can use for free.
+        <br>UI Version V7.1
+      </p>
+      <hr><button class="btnok" id="okBtn">OK</button>
+      <button class="btnupdate" id="updateBtn">Contact</button>
+    </div>
+  </div>
+<!-- Top Navigation -->
+<div class="top_nav">
+  <div class="logo">
+    <span class="text">MocoStore</span>
+  </div>
+  <div class="options">
+    <input type="text" id="searchInput" placeholder="Search apps..." />
+    <button id="openUpload">Upload App</button>
+  </div>
+</div>
+
+<!-- App Gallery -->
+<div id="appGallery"></div>
+
+<!-- Upload Modal -->
+<div id="uploadModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModal">&times;</span>
+    <input id="appName" placeholder="App Name" />
+    <input id="appDesc" placeholder="Description" />
+    <input id="appIcon" placeholder="Icon URL" />
+    <input id="appApk" placeholder="APK URL" />
+    <input id="appCategory" placeholder="Category" />
+    <input id="appDeveloper" placeholder="Developer" />
+    <input id="appVersion" placeholder="Version" />
+    <input id="appSize" placeholder="Size" />
+    <button onclick="uploadApp()">Upload</button>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="index.html"><i class="fas fa-home"></i>Home</a>
+  <a href="https://sachinpro.surge.sh/"><i class="fas fa-user"></i>Profile</a>
+  <a href="./assets/contact.html"><i class="fas fa-envelope"></i>Contact Us</a>
+</div>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="./index.js">
+   // Firebase config
+  </script>
+</body>
+</html>

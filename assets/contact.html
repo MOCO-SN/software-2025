@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us Modal</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #89f7fe, #66a6ff);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 60px;
+  }
+
+  h2 {
+    text-align: center;
+    width: 100%;
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 32px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+  }
+
+  /* Floating Button */
+  #contactBtn {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    padding: 16px 22px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff6b81, #ff4757);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+    z-index: 1000;
+  }
+  #contactBtn:hover { transform: translateY(-3px); }
+
+  /* Modal Overlay */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .modal.show { display: flex; opacity: 1; }
+
+  /* Modal Content */
+  .modal-content {
+    width: 400px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 40px 30px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    transform: translateY(50px);
+    transition: transform 0.4s ease;
+  }
+  .modal.show .modal-content { transform: translateY(0); }
+
+  .modal-content input,
+  .modal-content textarea {
+    background: rgba(255,255,255,0.25);
+    border: none;
+    border-radius: 15px;
+    padding: 14px 18px;
+    font-size: 14px;
+    color: #fff;
+    outline: none;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+  .modal-content input::placeholder,
+  .modal-content textarea::placeholder { color: rgba(255,255,255,0.7); }
+  .modal-content input:focus,
+  .modal-content textarea:focus { background: rgba(255,255,255,0.35); }
+
+  .modal-content button {
+    padding: 14px;
+    border: none;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #ff6b81, #ff4757);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.3s;
+  }
+  .modal-content button:hover { transform: translateY(-3px); opacity: 0.9; }
+
+  .modal-content .close {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  /* Messages Preview */
+  .messages {
+    width: 600px;
+    margin-top: 50px;
+  }
+  .messages h3 {
+    color: #fff;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+  }
+  .message-card {
+    background: rgba(255,255,255,0.9);
+    border-radius: 20px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+  }
+  .message-card:hover { transform: translateY(-3px); }
+  .message-card p { margin: 5px 0; color: #333; }
+  .message-card .timestamp { font-size: 12px; color: #777; text-align: right; }
+
+  @media (max-width: 450px) {
+    .modal-content, .messages { width: 90%; }
+    #contactBtn { bottom: 20px; right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<h2>Messages Preview</h2>
+
+<!-- Floating Contact Button -->
+<button id="contactBtn">Contact Us</button>
+
+<!-- Modal -->
+<div class="modal" id="contactModal">
+  <div class="modal-content">
+    <span class="close" id="closeModal">&times;</span>
+    <input type="text" id="userName" placeholder="Your Name">
+    <input type="email" id="userEmail" placeholder="Your Email">
+    <textarea id="userMsg" rows="4" placeholder="Your Message"></textarea>
+    <button onclick="sendMessage()">Send Message</button>
+  </div>
+</div>
+
+<div class="messages">
+  <div id="messagesPreview"></div>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+<script>
+  // Firebase config
+  const firebaseConfig = {
+  apiKey: "AIzaSyAvW0n21SzMcG0cT8GdafjHN8LtcLpF89s",
+  authDomain: "moco-player-f396a.firebaseapp.com",
+  databaseURL: "https://moco-player-f396a-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "moco-player-f396a",
+  storageBucket: "moco-player-f396a.appspot.com",
+  messagingSenderId: "96132308835",
+  appId: "1:96132308835:web:90f34c7a8e3cafbbdbbd56",
+  measurementId: "G-CRWNKC0M5N"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  // Modal open/close
+  const modal = document.getElementById('contactModal');
+  const btn = document.getElementById('contactBtn');
+  const closeBtn = document.getElementById('closeModal');
+
+  btn.onclick = () => modal.classList.add('show');
+  closeBtn.onclick = () => modal.classList.remove('show');
+  window.onclick = (e) => { if(e.target == modal) modal.classList.remove('show'); }
+
+  // Send Message
+  function sendMessage() {
+    const name = document.getElementById('userName').value.trim();
+    const email = document.getElementById('userEmail').value.trim();
+    const msg = document.getElementById('userMsg').value.trim();
+
+    if(!name || !email || !msg) { alert("Fill all fields!"); return; }
+
+    db.ref('contactMessages').push({ name, email, message: msg, timestamp: Date.now() })
+      .then(() => {
+        alert("Message sent successfully!");
+        document.getElementById('userName').value = '';
+        document.getElementById('userEmail').value = '';
+        document.getElementById('userMsg').value = '';
+        modal.classList.remove('show');
+      })
+      .catch(error => alert("Error: " + error.message));
+  }
+
+  // Load messages preview
+  const messagesPreview = document.getElementById('messagesPreview');
+  db.ref('contactMessages').on('value', snapshot => {
+    messagesPreview.innerHTML = '';
+    snapshot.forEach(child => {
+      const data = child.val();
+      const card = document.createElement('div');
+      card.classList.add('message-card');
+
+      const date = new Date(data.timestamp);
+      const timeStr = date.toLocaleString();
+
+      card.innerHTML = `
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Message:</strong> ${data.message}</p>
+        <p class="timestamp">${timeStr}</p>
+      `;
+      messagesPreview.appendChild(card);
+    });
+  });
+</script>
+
+</body>
+</html>
