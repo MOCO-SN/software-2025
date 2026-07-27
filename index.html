@@ -1,88 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SACHINSOFT || MAIN</title>
-   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8118023699085759"
-     crossorigin="anonymous"></script>
-  <link rel="icon" href="icon.jpg">
-  <link rel="stylesheet" href="./css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MocoStore – Android App Store</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="css/cards.css" />
+  <link rel="stylesheet" href="css/modal.css" />
+  <link rel="stylesheet" href="css/animations.css" />
 </head>
-
 <body>
 
-   <div class="overlay" id="overlay">
-    <div class="alert-box">
-      <h2 class="h2">Notifications !</h2>
-      <hr>
-      <p class="info">This website is Made By <b>Sachin.</b><br>
-        It contain Free Moded Apps.<br>
-        Which you can use for free.
-        <br>UI Version V8.3
-      </p>
-      <hr><button class="btnok" id="okBtn">OK</button>
-      <button class="btnupdate" id="updateBtn">Contact</button>
-    </div>
-  </div>
-<!-- Top Navigation -->
-    <div class="nav-container">
-        <div class="top-nav">
-            <!-- Logo -->
-            <div class="logo">
-                <i class="fas fa-cube logo-icon"></i>
-                <div class="logo-text">Moco<span>Store</span></div>
-            </div>
-
-            <!-- Search -->
-            <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-                <input 
-                    type="text" 
-                    class="search-box" 
-                    placeholder="Search apps, games, tools..."
-                    id="searchInput"
-                >
-            </div>
-
-            <!-- Action Button -->
-            <button class="action-btn" id="openUpload">
-                <i class="fas fa-cloud-upload-alt btn-icon"></i>
-                <span>Upload App</span>
-            </button>
+  <!-- ====== HEADER ====== -->
+  <header class="header glass">
+    <div class="container header-inner">
+      <div class="logo">
+        <img src="icon.jpg" alt="MocoStore" class="logo-icon" />
+        <span class="logo-text">Moco<span>Store</span></span>
+      </div>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="upload.html" target="_blank"><i class="fas fa-cloud-upload-alt"></i> Upload</a></li>
+          <li><a href="https://mocosn.in" target="_blank"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+        <div class="nav-search">
+          <input type="text" id="searchInput" placeholder="Search apps..." />
+          <button id="searchBtn"><i class="fas fa-search"></i></button>
         </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+      </nav>
     </div>
- <!-- App Gallery -->
- 
-<div id="appGallery"></div>
-<!-- Upload Modal -->
-<div id="uploadModal" class="modal">
-  <div class="modal-content">
-    <span class="close" id="closeModal">&times;</span>
-    <input id="appName" placeholder="App Name" />
-    <input id="appDesc" placeholder="Description" />
-    <input id="appIcon" placeholder="Icon URL" />
-    <input id="appApk" placeholder="APK URL" />
-    <input id="appCategory" placeholder="Category" />
-    <input id="appDeveloper" placeholder="Developer" />
-    <input id="appVersion" placeholder="Version" />
-    <input id="appSize" placeholder="Size" />
-    <button onclick="uploadApp()">Upload</button>
-  </div>
-</div>
+  </header>
 
-<div class="bottom-nav">
-  <a href="index.html"><i class="fas fa-home"></i>Home</a>
-  <a href="https://sachinpro.surge.sh/"><i class="fas fa-user"></i>Profile</a>
-  <a href="./assets/contact.html"><i class="fas fa-envelope"></i>Contact Us</a>
-</div>
-  <!-- Firebase SDK -->
+  <!-- ====== HERO BANNER ====== -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-slider" id="heroSlider">
+        <!-- slides injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CATEGORY FILTER ====== -->
+  <section class="categories">
+    <div class="container">
+      <div class="category-filter" id="categoryFilter">
+        <button class="cat-btn active" data-category="all">All</button>
+        <button class="cat-btn" data-category="games">Games</button>
+        <button class="cat-btn" data-category="social">Social</button>
+        <button class="cat-btn" data-category="tools">Tools</button>
+        <button class="cat-btn" data-category="entertainment">Entertainment</button>
+        <button class="cat-btn" data-category="education">Education</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== TRENDING APPS ====== -->
+  <section class="section trending">
+    <div class="container">
+      <div class="section-header">
+        <h2><i class="fas fa-fire"></i> Trending Apps</h2>
+        <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="app-grid" id="trendingGrid">
+        <!-- skeleton loading will appear here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== LATEST APPS ====== -->
+  <section class="section latest">
+    <div class="container">
+      <div class="section-header">
+        <h2><i class="fas fa-star"></i> Latest Apps</h2>
+        <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="app-grid" id="appGallery">
+        <!-- skeleton loading -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="footer glass">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="icon.jpg" alt="MocoStore" class="footer-icon" />
+        <span>MocoStore</span>
+        <p>Discover the best Android apps. Download safely & fast.</p>
+        <div class="social-links">
+          <a href="https://mocosn.in"><i class="fab fa-github"></i></a>
+          <a href="https://mocosn.in"><i class="fab fa-twitter"></i></a>
+          <a href="https://mocosn.in"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="upload.html">Upload App</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-credit">
+        <p>Developed with ❤️ by <strong>Sachin Patel</strong></p>
+        <p>EC(VLSI), Bihar Engineering University, Patna</p>
+        <p>&copy; 2026 MocoStore. MIT License</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ====== MODAL (App Detail) ====== -->
+  <div class="modal-overlay" id="appModal">
+    <div class="modal glass">
+      <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+      <div class="modal-content" id="modalContent">
+        <!-- dynamic content -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <script src="./index.js">
-   // Firebase config
-  </script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+
+  <!-- Custom JS -->
+  <script src="js/firebase.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="index.js"></script>
+  <script src="js/slider.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
