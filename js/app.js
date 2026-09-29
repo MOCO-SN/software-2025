@@ -18,6 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.nav-list a').forEach(link => {
     link.addEventListener('click', () => {
       navList?.classList.remove('open');
+      const icon = document.querySelector('#mobileMenuBtn i');
+      if(icon) {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
     });
   });
 
