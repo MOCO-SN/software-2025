@@ -77,6 +77,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
+  // Search input handler (redirects to index with query)
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+
+  function handleSearch() {
+    const q = searchInput?.value.trim();
+    if (q) {
+      window.location.href = `index.html?search=${encodeURIComponent(q)}`;
+    }
+  }
+
+  if (searchBtn && searchInput) {
+    searchBtn.addEventListener('click', handleSearch);
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleSearch();
+    });
+  }
+
   if (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
