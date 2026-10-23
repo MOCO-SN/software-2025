@@ -181,6 +181,22 @@ body {
   cursor: pointer;
 }
 
+.nav-drawer-header {
+  display: none;
+}
+
+.nav-close-btn {
+  display: none;
+}
+
+.nav-backdrop {
+  display: none;
+}
+
+body.nav-open {
+  overflow: hidden;
+}
+
 /* ===== HERO ===== */
 .hero {
   padding: 40px 0 30px;

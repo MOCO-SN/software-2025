@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Primary Meta Tags -->
+  <title>Download Android APK – MocoStore</title>
+  <meta name="title" content="Download Android APK – MocoStore" />
+  <meta name="description" id="metaDescription" content="Download Android APK safely and fast on MocoStore. Verified malware-free APK files with direct download links." />
+  <meta name="keywords" content="download apk, android apk, safe apk download, free android app, MocoStore" />
+  <meta name="author" content="Sachin Patel" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" id="metaCanonical" href="https://software.mocosn.in/app.html" />
+  <meta name="theme-color" content="#00bcd4" />
+
+  <!-- Favicon & PWA Icons -->
+  <link rel="icon" type="image/jpeg" href="icon.gif" />
+  <link rel="apple-touch-icon" href="icon.gif" />
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="MocoStore" />
+  <meta property="og:title" id="ogTitle" content="Download Android APK – MocoStore" />
+  <meta property="og:description" id="ogDescription" content="Download Android APK safely and fast on MocoStore. Verified malware-free APK files." />
+  <meta property="og:image" id="ogImage" content="https://software.mocosn.in/icon.gif" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" id="twitterTitle" content="Download Android APK – MocoStore" />
+  <meta name="twitter:description" id="twitterDescription" content="Download Android APK safely and fast on MocoStore." />
+  <meta name="twitter:image" id="twitterImage" content="https://software.mocosn.in/icon.gif" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="css/cards.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/app-detail.css" />
+</head>
+
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="header glass">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img src="icon.gif" alt="MocoStore" class="logo-icon" />
+        <span class="logo-text">Moco<span>Store</span></span>
+      </a>
+      <nav class="nav">
+        <div class="nav-search">
+          <input type="text" id="searchInput" placeholder="Search apps..." />
+          <button id="searchBtn" aria-label="Search"><i class="fas fa-search"></i></button>
+        </div>
+        <ul class="nav-list" id="navList">
+          <li class="nav-drawer-header">
+            <div class="logo">
+              <img src="icon.gif" alt="MocoStore" class="logo-icon" />
+              <span class="logo-text">Moco<span>Store</span></span>
+            </div>
+            <button class="nav-close-btn" id="navCloseBtn" aria-label="Close menu">
+              <i class="fas fa-times"></i>
+            </button>
+          </li>
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="upload.html" target="_blank"><i class="fas fa-cloud-upload-alt"></i> Upload</a></li>
+          <li><a href="https://mocosn.in" target="_blank"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+      </nav>
+    </div>
+  </header>
+  <div class="nav-backdrop" id="navBackdrop"></div>
+
+  <!-- ====== APP DETAIL SECTION ====== -->
+  <main class="app-detail-section">
+    <div class="container">
+
+      <!-- Breadcrumbs -->
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <span class="separator"><i class="fas fa-chevron-right"></i></span>
+        <a href="index.html" id="bcCategory">Apps</a>
+        <span class="separator"><i class="fas fa-chevron-right"></i></span>
+        <span class="current" id="bcAppName">Loading...</span>
+      </nav>
+
+      <!-- Loading State -->
+      <div id="appDetailLoading" class="app-detail-loading">
+        <div class="spinner"></div>
+        <p style="color:var(--text-secondary); font-size:15px;">Loading app details from MocoStore...</p>
+      </div>
+
+      <!-- Error State -->
+      <div id="appDetailError" class="app-detail-error" style="display:none;">
+        <i class="fas fa-exclamation-triangle" style="font-size:48px; color:#ff4757; margin-bottom:16px;"></i>
+        <h2 style="margin-bottom:8px; color:var(--text-primary);">App Not Found</h2>
+        <p id="errorMessage" style="color:var(--text-secondary); margin-bottom:24px;">The requested app could not be found.</p>
+        <a href="index.html" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:8px;">
+          <i class="fas fa-arrow-left"></i> Back to Store
+        </a>
+      </div>
+
+      <!-- Content (Visible after fetch) -->
+      <div id="appDetailContent" style="display:none;">
+
+        <!-- Main Hero Card -->
+        <section class="app-hero-card">
+          <div class="app-hero-inner">
+            <img id="appIcon" src="assets/no_icon.gif" alt="App Icon" class="app-detail-icon" onerror="this.onerror=null;this.src='assets/no_icon.gif'" />
+
+            <div class="app-hero-info">
+              <div class="app-header-tags">
+                <a href="#" id="appCategoryBadge" class="category-pill"><i class="fas fa-tag"></i> General</a>
+                <span class="verified-pill"><i class="fas fa-check-circle"></i> Verified Safe</span>
+              </div>
+
+              <h1 id="appName" class="app-title">Loading...</h1>
+              <div class="app-developer">
+                <span>By <strong id="appDeveloper" style="color:var(--text-primary);">Developer</strong></span>
+              </div>
+
+              <!-- Quick Stats Row -->
+              <div class="app-quick-stats">
+                <div class="stat-item">
+                  <span class="stat-label">Version</span>
+                  <span class="stat-value" id="appVersion">1.0.0</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                  <span class="stat-label">File Size</span>
+                  <span class="stat-value" id="appSize">N/A</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                  <span class="stat-label">Downloads</span>
+                  <span class="stat-value"><i class="fas fa-eye" style="color:var(--accent);"></i> <span id="appViews">0</span></span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                  <span class="stat-label">Likes</span>
+                  <span class="stat-value"><i class="fas fa-heart" style="color:#ff4757;"></i> <span id="appLikes">0</span></span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                  <span class="stat-label">OS</span>
+                  <span class="stat-value"><i class="fab fa-android" style="color:#2ed573;"></i> Android 5.0+</span>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="app-actions" id="appActionsArea">
+                <button type="button" id="downloadApkBtn" class="btn-download-apk">
+                  <i class="fas fa-download"></i> Download APK
+                </button>
+                <button type="button" id="likeBtn" class="btn-action-secondary" aria-label="Like app">
+                  <i class="fas fa-heart"></i> Like
+                </button>
+                <button type="button" id="shareBtn" class="btn-action-secondary" aria-label="Share app">
+                  <i class="fas fa-share-alt"></i> Share
+                </button>
+              </div>
+
+              <!-- 10-Second Countdown Timer Box -->
+              <div class="download-timer-box" id="downloadTimerBox" style="display: none;">
+                <div class="timer-header">
+                  <div class="timer-circle">
+                    <span id="countdownNumber">10</span>
+                  </div>
+                  <div class="timer-info">
+                    <h4>Generating Secure Download Link...</h4>
+                    <p>Please wait while we verify the APK and prepare your link.</p>
+                  </div>
+                </div>
+                <div class="timer-progress-track">
+                  <div class="timer-progress-fill" id="timerProgressFill"></div>
+                </div>
+              </div>
+
+              <!-- Ready Download Link Box -->
+              <div class="download-ready-box" id="downloadReadyBox" style="display: none;">
+                <div class="ready-header">
+                  <i class="fas fa-check-circle ready-icon"></i>
+                  <div>
+                    <h4>Your Download Link is Ready!</h4>
+                    <p>Verified clean, secure & ready for installation.</p>
+                  </div>
+                </div>
+                <div class="ready-actions">
+                  <a href="#" id="finalDownloadBtn" class="btn-download-apk btn-ready-download" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-cloud-download-alt"></i> Download APK Now
+                  </a>
+                  <button type="button" id="downloadAgainBtn" class="btn-action-secondary">
+                    <i class="fas fa-redo"></i> Restart Timer
+                  </button>
+                </div>
+                <p class="download-direct-hint">
+                  If the download didn't start automatically, <a href="#" id="directDownloadLink" target="_blank" rel="noopener noreferrer">click here to download</a>.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- Details Grid (About + Specs) -->
+        <div class="app-detail-grid">
+
+          <!-- Left Column: Description -->
+          <div class="detail-card">
+            <h2 class="detail-card-title"><i class="fas fa-align-left"></i> About This App</h2>
+            <div id="appDescription" class="app-description-text">
+              Loading description...
+            </div>
+          </div>
+
+          <!-- Right Column: Specs & Verification -->
+          <div class="detail-card">
+            <h2 class="detail-card-title"><i class="fas fa-info-circle"></i> App Specifications</h2>
+
+            <div class="specs-list">
+              <div class="spec-row">
+                <span class="spec-name"><i class="fas fa-mobile-alt"></i> App Name</span>
+                <span class="spec-value" id="specName">-</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-name"><i class="fas fa-user"></i> Developer</span>
+                <span class="spec-value" id="specDeveloper">-</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-name"><i class="fas fa-tag"></i> Category</span>
+                <span class="spec-value" id="specCategory">-</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-name"><i class="fas fa-code-branch"></i> Version</span>
+                <span class="spec-value" id="specVersion">-</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-name"><i class="fas fa-weight-hanging"></i> File Size</span>
+                <span class="spec-value" id="specSize">-</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-name"><i class="fas fa-eye"></i> Total Views</span>
+                <span class="spec-value" id="specViews">-</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-name"><i class="fab fa-android"></i> OS Required</span>
+                <span class="spec-value">Android 5.0+</span>
+              </div>
+            </div>
+
+            <!-- Security Badge Box -->
+            <div class="security-badge-box">
+              <i class="fas fa-shield-alt"></i>
+              <div>
+                <strong>100% Verified Safe</strong>
+                <p>Scanned & verified. Free of malware and safe for direct installation.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Related Apps Section -->
+        <section class="section related-apps" style="padding-top:10px;">
+          <div class="section-header">
+            <h2><i class="fas fa-cubes"></i> Related Apps</h2>
+            <a href="index.html" class="view-all">Explore All <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="app-grid" id="relatedAppsGrid">
+            <!-- Injected by JS -->
+          </div>
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="footer glass">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="icon.gif" alt="MocoStore" class="footer-icon" />
+        <span>MocoStore</span>
+        <p>Discover the best Android apps. Download safely & fast.</p>
+        <div class="social-links">
+          <a href="https://mocosn.in"><i class="fab fa-github"></i></a>
+          <a href="https://mocosn.in"><i class="fab fa-twitter"></i></a>
+          <a href="https://mocosn.in"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="upload.html">Upload App</a></li>
+          <li><a href="https://mocosn.in">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-credit">
+        <p>Developed with ❤️ by <strong>Sachin Patel</strong></p>
+        <p>EC(VLSI), Bihar Engineering University, Patna</p>
+        <p>&copy; 2026 MocoStore. MIT License</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+
+  <!-- Custom Scripts -->
+  <script src="js/firebase.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/app-detail.js"></script>
+
+</body>
+
+</html>

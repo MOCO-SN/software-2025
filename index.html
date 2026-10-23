@@ -4,7 +4,78 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MocoStore – Android App Store</title>
+  
+  <!-- Primary Meta Tags for SEO -->
+  <title>MocoStore – Download Android Apps & Games APK Safely</title>
+  <meta name="title" content="MocoStore – Download Android Apps & Games APK Safely" />
+  <meta name="description" content="Discover, explore, and download top Android APK games and apps for free. Safe, fast, malware-free APK downloads with direct download links on MocoStore." />
+  <meta name="keywords" content="Android app store, APK download, free android games, android apps, safe apk, download apk, direct apk download, MocoStore" />
+  <meta name="author" content="Sachin Patel" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://software.mocosn.in/" />
+  <meta name="theme-color" content="#00bcd4" />
+
+  <!-- Favicon & PWA Icons -->
+  <link rel="icon" type="image/jpeg" href="icon.gif" />
+  <link rel="apple-touch-icon" href="icon.gif" />
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://software.mocosn.in/" />
+  <meta property="og:site_name" content="MocoStore" />
+  <meta property="og:title" content="MocoStore – Download Android Apps & Games APK Safely" />
+  <meta property="og:description" content="Discover, explore, and download top Android APK games and apps for free. Safe, fast, malware-free APK downloads on MocoStore." />
+  <meta property="og:image" content="https://software.mocosn.in/icon.gif" />
+  <meta property="og:image:width" content="1080" />
+  <meta property="og:image:height" content="1080" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://software.mocosn.in/" />
+  <meta name="twitter:title" content="MocoStore – Download Android Apps & Games APK Safely" />
+  <meta name="twitter:description" content="Discover and download the best Android apps and games safely and fast on MocoStore." />
+  <meta name="twitter:image" content="https://software.mocosn.in/icon.gif" />
+
+  <!-- Structured Data (JSON-LD) for Google Rich Results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://software.mocosn.in/#website",
+        "url": "https://software.mocosn.in/",
+        "name": "MocoStore",
+        "description": "Discover and download top Android APK apps and games safely and fast.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://software.mocosn.in/?search={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://software.mocosn.in/#organization",
+        "name": "MocoStore",
+        "url": "https://software.mocosn.in/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://software.mocosn.in/icon.gif"
+        },
+        "founder": {
+          "@type": "Person",
+          "name": "Sachin Patel"
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,11 +83,9 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <!-- Custom CSS -->
-  <script src="https://asaacaciafeint.com/222168bd103ed785238174857d7093a0/invoke.js"></script>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/responsive.css" />
   <link rel="stylesheet" href="css/cards.css" />
-  <link rel="stylesheet" href="css/modal.css" />
   <link rel="stylesheet" href="css/animations.css" />
 </head>
 
@@ -25,24 +94,34 @@
   <!-- ====== HEADER ====== -->
   <header class="header glass">
     <div class="container header-inner">
-      <div class="logo">
-        <img src="icon.jpg" alt="MocoStore" class="logo-icon" />
+      <a href="index.html" class="logo">
+        <img src="icon.gif" alt="MocoStore" class="logo-icon" />
         <span class="logo-text">Moco<span>Store</span></span>
-      </div>
+      </a>
       <nav class="nav">
-        <ul class="nav-list">
+        <div class="nav-search">
+          <input type="text" id="searchInput" placeholder="Search apps..." />
+          <button id="searchBtn" aria-label="Search"><i class="fas fa-search"></i></button>
+        </div>
+        <ul class="nav-list" id="navList">
+          <li class="nav-drawer-header">
+            <div class="logo">
+              <img src="icon.gif" alt="MocoStore" class="logo-icon" />
+              <span class="logo-text">Moco<span>Store</span></span>
+            </div>
+            <button class="nav-close-btn" id="navCloseBtn" aria-label="Close menu">
+              <i class="fas fa-times"></i>
+            </button>
+          </li>
           <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
           <li><a href="upload.html" target="_blank"><i class="fas fa-cloud-upload-alt"></i> Upload</a></li>
           <li><a href="https://mocosn.in" target="_blank"><i class="fas fa-envelope"></i> Contact</a></li>
         </ul>
-        <div class="nav-search">
-          <input type="text" id="searchInput" placeholder="Search apps..." />
-          <button id="searchBtn"><i class="fas fa-search"></i></button>
-        </div>
-        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
       </nav>
     </div>
   </header>
+  <div class="nav-backdrop" id="navBackdrop"></div>
 
   <!-- ====== HERO BANNER ====== -->
   <section class="hero">
@@ -52,18 +131,7 @@
       </div>
     </div>
   </section>
-  <div class="ads-wrapper" style="text-align: center; margin: 20px 0;">
-    <script>
-      atOptions = {
-        'key': '222168bd103ed785238174857d7093a0',
-        'format': 'iframe',
-        'height': 60,
-        'width': 468,
-        'params': {}
-      };
-    </script>
-    <script src="https://asaacaciafeint.com/222168bd103ed785238174857d7093a0/invoke.js"></script>
-  </div>
+
   <!-- ====== CATEGORY FILTER ====== -->
   <section class="categories">
     <div class="container">
@@ -77,18 +145,6 @@
       </div>
     </div>
   </section>
-  <div class="ads-wrapper" style="text-align: center; margin: 20px 0;">
-    <script>
-      atOptions = {
-        'key': '222168bd103ed785238174857d7093a0',
-        'format': 'iframe',
-        'height': 60,
-        'width': 468,
-        'params': {}
-      };
-    </script>
-    <script src="https://asaacaciafeint.com/222168bd103ed785238174857d7093a0/invoke.js"></script>
-  </div>
 
   <!-- ====== TRENDING APPS ====== -->
   <section class="section trending">
@@ -102,18 +158,6 @@
       </div>
     </div>
   </section>
-  <div class="ads-wrapper" style="text-align: center; margin: 20px 0;">
-    <script>
-      atOptions = {
-        'key': '222168bd103ed785238174857d7093a0',
-        'format': 'iframe',
-        'height': 60,
-        'width': 468,
-        'params': {}
-      };
-    </script>
-    <script src="https://asaacaciafeint.com/222168bd103ed785238174857d7093a0/invoke.js"></script>
-  </div>
 
   <!-- ====== LATEST APPS ====== -->
   <section class="section latest">
@@ -122,18 +166,6 @@
         <h2><i class="fas fa-star"></i> Latest Apps</h2>
         <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
       </div>
-        <div class="ads-wrapper" style="text-align: center; margin: 20px 0;">
-  <script>
-    atOptions = {
-      'key' : '222168bd103ed785238174857d7093a0',
-      'format' : 'iframe',
-      'height' : 60,
-      'width' : 468,
-      'params' : {}
-    };
-  </script>
-  <script src="https://asaacaciafeint.com/222168bd103ed785238174857d7093a0/invoke.js"></script>
-
       <div class="app-grid" id="appGallery">
         <!-- skeleton loading -->
       </div>
@@ -144,7 +176,7 @@
   <footer class="footer glass">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <img src="icon.jpg" alt="MocoStore" class="footer-icon" />
+        <img src="icon.gif" alt="MocoStore" class="footer-icon" />
         <span>MocoStore</span>
         <p>Discover the best Android apps. Download safely & fast.</p>
         <div class="social-links">
@@ -158,7 +190,7 @@
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="upload.html">Upload App</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://mocosn.in">Contact</a></li>
         </ul>
       </div>
       <div class="footer-credit">
@@ -168,35 +200,12 @@
       </div>
     </div>
   </footer>
-  <div class="ads-wrapper" style="text-align: center; margin: 20px 0;">
-  <script>
-    atOptions = {
-      'key' : '222168bd103ed785238174857d7093a0',
-      'format' : 'iframe',
-      'height' : 60,
-      'width' : 468,
-      'params' : {}
-    };
-  </script>
-  <script src="https://asaacaciafeint.com/222168bd103ed785238174857d7093a0/invoke.js"></script>
-
-  <!-- ====== MODAL (App Detail) ====== -->
-  <div class="modal-overlay" id="appModal">
-    <div class="modal glass">
-      <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
-      <div class="modal-content" id="modalContent">
-        <!-- dynamic content -->
-      </div>
-    </div>
-  </div>
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 
-  <!-- Ads -->
-  <script src="ads.js"></script>
   <!-- Custom JS -->
   <script src="js/firebase.js"></script>
   <script src="js/ui.js"></script>
@@ -204,7 +213,6 @@
   <script src="js/slider.js"></script>
   <script src="js/search.js"></script>
   <script src="js/app.js"></script>
-
 
 </body>
 

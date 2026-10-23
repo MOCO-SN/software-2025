@@ -3,7 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Upload App – MocoStore</title>
+  
+  <!-- Primary Meta Tags -->
+  <title>Upload Your Android App – MocoStore Developer Hub</title>
+  <meta name="title" content="Upload Your Android App – MocoStore Developer Hub" />
+  <meta name="description" content="Publish and share your Android APK apps with the MocoStore community. Free, fast distribution for independent Android app developers." />
+  <meta name="keywords" content="upload android app, publish apk, android developer, free apk distribution, submit android app, MocoStore" />
+  <meta name="author" content="Sachin Patel" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://software.mocosn.in/upload.html" />
+  <meta name="theme-color" content="#00bcd4" />
+
+  <!-- Favicon & PWA Icons -->
+  <link rel="icon" type="image/jpeg" href="icon.gif" />
+  <link rel="apple-touch-icon" href="icon.gif" />
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://software.mocosn.in/upload.html" />
+  <meta property="og:title" content="Upload Your Android App – MocoStore Developer Hub" />
+  <meta property="og:description" content="Publish and share your Android APK with the MocoStore community. Free, fast distribution." />
+  <meta property="og:image" content="https://software.mocosn.in/icon.gif" />
+
+  <!-- Fonts & Styles -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -14,31 +37,30 @@
 <body>
   <header class="header glass">
     <div class="container header-inner">
-      <div class="logo">
-        <img src="icon.jpg" alt="MocoStore" class="logo-icon" />
+      <a href="index.html" class="logo">
+        <img src="icon.gif" alt="MocoStore" class="logo-icon" />
         <span class="logo-text">Moco<span>Store</span></span>
-      </div>
+      </a>
       <nav class="nav">
-        <ul class="nav-list">
+        <ul class="nav-list" id="navList">
+          <li class="nav-drawer-header">
+            <div class="logo">
+              <img src="icon.gif" alt="MocoStore" class="logo-icon" />
+              <span class="logo-text">Moco<span>Store</span></span>
+            </div>
+            <button class="nav-close-btn" id="navCloseBtn" aria-label="Close menu">
+              <i class="fas fa-times"></i>
+            </button>
+          </li>
           <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
           <li><a href="upload.html" class="active"><i class="fas fa-cloud-upload-alt"></i> Upload</a></li>
           <li><a href="https://mocosn.in" target="_blank"><i class="fas fa-envelope"></i> Contact</a></li>
         </ul>
-        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
       </nav>
     </div>
   </header>
-  <div class="ads-wrapper" style="text-align: center; margin: 20px 0;">
-  <script>
-    atOptions = {
-      'key' : '222168bd103ed785238174857d7093a0',
-      'format' : 'iframe',
-      'height' : 60,
-      'width' : 468,
-      'params' : {}
-    };
-  </script>
-  <script src="https://asaacaciafeint.com/222168bd103ed785238174857d7093a0/invoke.js"></script>
+  <div class="nav-backdrop" id="navBackdrop"></div>
 
   <section class="section">
     <div class="container">
@@ -109,23 +131,11 @@
       </div>
     </div>
   </section>
-  <div class="ads-wrapper" style="text-align: center; margin: 20px 0;">
-  <script>
-    atOptions = {
-      'key' : '222168bd103ed785238174857d7093a0',
-      'format' : 'iframe',
-      'height' : 60,
-      'width' : 468,
-      'params' : {}
-    };
-  </script>
-  <script src="https://asaacaciafeint.com/222168bd103ed785238174857d7093a0/invoke.js"></script>
-
 
   <footer class="footer glass">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <img src="icon.jpg" alt="MocoStore" class="footer-icon" />
+        <img src="icon.gif" alt="MocoStore" class="footer-icon" />
         <span>MocoStore</span>
         <p>Discover the best Android apps. Download safely & fast.</p>
       </div>

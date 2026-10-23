@@ -70,9 +70,10 @@ function renderSlider(apps, slider) {
     const views = app.views || 0;
     const badge = views > 0 ? '🔥 Popular' : 'New';
     
+    const fallbackIcon = 'assets/no_icon.gif';
     return `
       <div class="hero-slide" onclick="openAppDetail('${app.id}')">
-        <img src="${app.iconUrl || 'https://www.mocosn.in/favicon.png'}" alt="${app.name || 'App'}" loading="lazy" />
+        <img src="${app.iconUrl || fallbackIcon}" alt="${app.name || 'App'}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackIcon}'" />
         <div class="slide-info">
           <h3>${app.name || 'Untitled'}</h3>
           <p>${app.category || 'General'} • 👁 ${views} views</p>

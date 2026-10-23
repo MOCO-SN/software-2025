@@ -1,0 +1,588 @@
+/* ===== CSS/app-detail.css ===== */
+
+.app-detail-section {
+  padding: 24px 0 60px;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.breadcrumbs a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.breadcrumbs a:hover {
+  color: #00838f;
+  text-decoration: underline;
+}
+
+.breadcrumbs .separator {
+  color: rgba(0, 188, 212, 0.4);
+  font-size: 11px;
+}
+
+.breadcrumbs .current {
+  color: var(--text-primary);
+  font-weight: 600;
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* App Hero Card */
+.app-hero-card {
+  background: #ffffff;
+  border-radius: var(--radius);
+  border: 1px solid rgba(0, 188, 212, 0.18);
+  padding: 36px 32px;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 188, 212, 0.08);
+}
+
+.app-hero-inner {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.app-detail-icon {
+  width: 110px;
+  height: 110px;
+  border-radius: 24px;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 10px 25px rgba(0, 188, 212, 0.2);
+  border: 2px solid rgba(0, 188, 212, 0.25);
+  background: #f0fafa;
+}
+
+.app-hero-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.app-header-tags {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.category-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: rgba(0, 188, 212, 0.1);
+  border: 1px solid rgba(0, 188, 212, 0.25);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.category-pill:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.verified-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: rgba(46, 213, 115, 0.12);
+  border: 1px solid rgba(46, 213, 115, 0.35);
+  color: #20bf6b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.app-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  line-height: 1.25;
+  word-break: break-word;
+}
+
+.app-developer {
+  color: var(--text-secondary);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.app-developer strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Quick Stats Bar */
+.app-quick-stats {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 22px;
+  background: #f0fafa;
+  border: 1px solid rgba(0, 188, 212, 0.16);
+  border-radius: 14px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-item .stat-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.stat-item .stat-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(0, 188, 212, 0.18);
+}
+
+/* Action Buttons */
+.app-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-download-apk {
+  background: var(--gradient);
+  color: #ffffff !important;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(0, 188, 212, 0.35);
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.btn-download-apk:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(0, 188, 212, 0.45);
+  color: #ffffff;
+}
+
+.btn-action-secondary {
+  background: #f0fafa;
+  border: 1px solid rgba(0, 188, 212, 0.22);
+  color: var(--text-primary);
+  padding: 13px 22px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+}
+
+.btn-action-secondary:hover {
+  background: rgba(0, 188, 212, 0.15);
+  border-color: var(--accent);
+  color: #00838f;
+  transform: translateY(-2px);
+}
+
+.btn-action-secondary.liked {
+  background: #ffeef0;
+  border-color: #ff4757;
+  color: #ff4757;
+}
+
+.btn-action-secondary.liked i {
+  color: #ff4757;
+}
+
+/* ===== 10-Second Download Countdown Timer ===== */
+.download-timer-box {
+  margin-top: 20px;
+  padding: 20px 24px;
+  border-radius: 16px;
+  background: #f0fafa;
+  border: 1px solid rgba(0, 188, 212, 0.28);
+  box-shadow: 0 4px 20px rgba(0, 188, 212, 0.1);
+  animation: fadeIn 0.3s ease;
+}
+
+.timer-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.timer-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 800;
+  box-shadow: 0 4px 15px rgba(0, 188, 212, 0.35);
+  flex-shrink: 0;
+  animation: timerPulse 1s infinite alternate;
+}
+
+@keyframes timerPulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+.timer-info h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+
+.timer-info p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.timer-progress-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 10px;
+  background: rgba(0, 188, 212, 0.12);
+  overflow: hidden;
+  position: relative;
+}
+
+.timer-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--gradient);
+  border-radius: 10px;
+  transition: width 0.25s linear;
+}
+
+/* ===== Ready Download Box ===== */
+.download-ready-box {
+  margin-top: 20px;
+  padding: 22px 24px;
+  border-radius: 16px;
+  background: #f0fbf5;
+  border: 1px solid rgba(46, 213, 115, 0.35);
+  box-shadow: 0 6px 24px rgba(46, 213, 115, 0.12);
+  animation: slideUp 0.35s ease;
+}
+
+.ready-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.ready-icon {
+  font-size: 34px;
+  color: #20bf6b;
+  flex-shrink: 0;
+}
+
+.ready-header h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #10ac84;
+  margin-bottom: 3px;
+}
+
+.ready-header p {
+  font-size: 13px;
+  color: #2d3748;
+  margin: 0;
+}
+
+.ready-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.btn-ready-download {
+  background: linear-gradient(135deg, #20bf6b, #10ac84) !important;
+  box-shadow: 0 4px 20px rgba(32, 191, 107, 0.35);
+}
+
+.btn-ready-download:hover {
+  box-shadow: 0 6px 25px rgba(32, 191, 107, 0.5);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.download-direct-hint {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.download-direct-hint a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.download-direct-hint a:hover {
+  color: #00838f;
+}
+
+/* Grid Layout for Details & Specs */
+.app-detail-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 28px;
+  margin-bottom: 40px;
+}
+
+.detail-card {
+  background: #ffffff;
+  border-radius: var(--radius);
+  border: 1px solid rgba(0, 188, 212, 0.15);
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(0, 188, 212, 0.06);
+}
+
+.detail-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-card-title i {
+  color: var(--accent);
+}
+
+.app-description-text {
+  color: #2d3748;
+  font-size: 15px;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+/* Specs Table */
+.specs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 188, 212, 0.1);
+  font-size: 14px;
+}
+
+.spec-row:last-child {
+  border-bottom: none;
+}
+
+.spec-name {
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.spec-name i {
+  width: 16px;
+  color: var(--accent);
+  text-align: center;
+}
+
+.spec-value {
+  color: var(--text-primary);
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Security / Safe Banner */
+.security-badge-box {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(46, 213, 115, 0.08);
+  border: 1px solid rgba(46, 213, 115, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.security-badge-box i {
+  font-size: 24px;
+  color: #20bf6b;
+}
+
+.security-badge-box p {
+  font-size: 12px;
+  color: #2d3748;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.security-badge-box strong {
+  color: #20bf6b;
+  display: block;
+}
+
+/* Loading & Empty States */
+.app-detail-loading,
+.app-detail-error {
+  text-align: center;
+  padding: 80px 20px;
+  background: #ffffff;
+  border-radius: var(--radius);
+  border: 1px solid rgba(0, 188, 212, 0.15);
+  box-shadow: 0 8px 30px rgba(0, 188, 212, 0.08);
+  margin: 30px 0;
+}
+
+.app-detail-loading .spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(0, 188, 212, 0.2);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive Media Queries */
+@media (max-width: 900px) {
+  .app-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .app-hero-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .app-detail-icon {
+    width: 96px;
+    height: 96px;
+    border-radius: 20px;
+  }
+
+  .app-header-tags {
+    justify-content: center;
+  }
+
+  .app-title {
+    font-size: 22px;
+  }
+
+  .app-developer {
+    justify-content: center;
+  }
+
+  .app-quick-stats {
+    justify-content: center;
+    gap: 14px;
+    padding: 12px 14px;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .stat-item {
+    align-items: center;
+    min-width: 70px;
+  }
+
+  .app-actions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .btn-download-apk {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-action-secondary {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .detail-card {
+    padding: 20px 18px;
+  }
+}

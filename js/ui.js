@@ -16,10 +16,12 @@ function renderAppCards(apps, containerId) {
     return;
   }
 
+  const fallbackIcon = 'assets/no_icon.gif';
+
   container.innerHTML = apps.map(app => `
     <div class="app-card" data-id="${app.id}" onclick="openAppDetail('${app.id}')">
       ${app.featured ? '<div class="card-badge">Featured</div>' : ''}
-      <img src="${app.iconUrl || 'https://via.placeholder.com/64/6c5ce7/ffffff?text=App'}" alt="${app.name}" class="card-icon" loading="lazy" />
+      <img src="${app.iconUrl || fallbackIcon}" alt="${app.name || 'App'}" class="card-icon" loading="lazy" onerror="this.onerror=null;this.src='${fallbackIcon}'" />
       <div class="card-name">${app.name || 'Untitled'}</div>
       <div class="card-category"><i class="fas fa-tag"></i> ${app.category || 'General'}</div>
       <div class="card-footer">
@@ -52,55 +54,13 @@ function showSkeleton(containerId, count = 6) {
   `).join('');
 }
 
-// Open app detail modal
+// Redirect to new app detail page with ID in URL
 function openAppDetail(appId) {
-  const modal = document.getElementById('appModal');
-  const content = document.getElementById('modalContent');
-  
-  content.innerHTML = `<div class="spinner"></div>`;
-  modal.classList.add('active');
-  
-  appsRef.child(appId).once('value', (snapshot) => {
-    const app = snapshot.val();
-    if (!app) {
-      content.innerHTML = `<p>App not found</p>`;
-      return;
-    }
-    app.id = appId;
-    
-    content.innerHTML = `
-      <img src="${app.iconUrl || 'https://www.mocosn.in/favicon.png'}" alt="${app.name}" class="modal-icon" />
-      <h2 class="modal-name">${app.name || 'Untitled'}</h2>
-      <div class="modal-developer"><i class="fas fa-user"></i> ${app.developer || 'Unknown'}</div>
-      <p class="modal-description">${app.description || 'No description available.'}</p>
-      <div class="modal-meta">
-        <span><strong>Version</strong> ${app.version || '1.0'}</span>
-        <span><strong>Size</strong> ${app.size || 'N/A'}</span>
-        <span><strong>Views</strong> 👁 ${app.views || 0}</span>
-        <span><strong>Likes</strong> ❤️ ${app.likes || 0}</span>
-        <span><strong>Category</strong> ${app.category || 'General'}</span>
-      </div>
-      <button class="modal-download-btn" onclick="downloadApp('${appId}')">
-        <i class="fas fa-download"></i> Download APK
-      </button>
-    `;
-  }).catch(err => {
-    content.innerHTML = `<p style="color: #ef4444;">Error loading app: ${err.message}</p>`;
-  });
+  if (!appId) return;
+  window.location.href = `app.html?id=${encodeURIComponent(appId)}`;
 }
 
-// Close modal
-document.getElementById('modalClose').addEventListener('click', () => {
-  document.getElementById('appModal').classList.remove('active');
-});
-
-document.getElementById('appModal').addEventListener('click', (e) => {
-  if (e.target === e.currentTarget) {
-    document.getElementById('appModal').classList.remove('active');
-  }
-});
-
-// Download app
+// Download app directly
 function downloadApp(appId) {
   appsRef.child(appId).once('value', (snapshot) => {
     const app = snapshot.val();
