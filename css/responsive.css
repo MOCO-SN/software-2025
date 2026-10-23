@@ -30,8 +30,9 @@
   .header {
     position: fixed;
     top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     width: calc(100% - 20px);
     max-width: 580px;
     padding: 6px 10px;
@@ -133,7 +134,7 @@
     transform: scale(1.06);
   }
 
-  /* Soft Backdrop Overlay (covers dock, behind drawer) */
+  /* Soft Backdrop Overlay (behind header & drawer) */
   .nav-backdrop {
     display: block;
     position: fixed;
@@ -144,7 +145,7 @@
     background: rgba(10, 25, 35, 0.45);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    z-index: 1002;
+    z-index: 998;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -175,12 +176,16 @@
     gap: 10px;
     z-index: 1005;
     transform: translateX(-100%);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
     overflow-y: auto;
   }
 
   .nav-list.open {
     transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
   }
 
   /* Drawer Header */
