@@ -27,6 +27,7 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
+  padding-top: 72px;
 }
 
 .container {
@@ -45,11 +46,25 @@ body {
 
 /* ===== HEADER ===== */
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 1000;
-  padding: 14px 0;
-  border-bottom: 1px solid rgba(0, 188, 212, 0.1);
+  padding: 12px 0;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 188, 212, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 188, 212, 0.06);
+  transition: padding 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 6px 24px rgba(0, 188, 212, 0.12);
+  border-bottom-color: rgba(0, 188, 212, 0.22);
 }
 
 .header-inner {

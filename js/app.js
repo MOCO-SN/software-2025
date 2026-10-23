@@ -71,6 +71,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Fixed top nav scroll effect
+  const header = document.querySelector('.header');
+  if (header) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 15) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }, { passive: true });
+  }
+
   // Auto-refresh trending every 60 seconds (optional)
   if (typeof loadAllApps === 'function' && typeof updateAppGrids === 'function') {
     setInterval(() => { loadAllApps(updateAppGrids); }, 60000);

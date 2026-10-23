@@ -65,6 +65,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Fixed top nav scroll effect
+  const header = document.querySelector('.header');
+  if (header) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 15) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }, { passive: true });
+  }
+
   if (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
