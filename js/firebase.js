@@ -15,7 +15,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
-const storage = firebase.storage();
+const storage = typeof firebase.storage === 'function' ? firebase.storage() : null;
 
 // Reference to apps node
 const appsRef = database.ref('apps');

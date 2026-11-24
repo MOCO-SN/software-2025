@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary Meta Tags -->
+  <title>Report a Bug – MocoStore</title>
+  <meta name="title" content="Report a Bug – MocoStore" />
+  <meta name="description" content="Found a broken APK link, listing error, or UI bug on MocoStore? Submit a bug report to help us improve the store." />
+  <meta name="keywords" content="bug report, report broken apk, mocostore support, report issue, android app store feedback" />
+  <meta name="author" content="Sachin Patel" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://software.mocosn.in/bugreport.html" />
+  <meta name="theme-color" content="#00bcd4" />
+
+  <!-- Favicon & PWA Icons -->
+  <link rel="icon" type="image/jpeg" href="icon.gif" />
+  <link rel="apple-touch-icon" href="icon.gif" />
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://software.mocosn.in/bugreport.html" />
+  <meta property="og:site_name" content="MocoStore" />
+  <meta property="og:title" content="Report a Bug – MocoStore" />
+  <meta property="og:description" content="Submit a bug report or broken APK issue on MocoStore." />
+  <meta property="og:image" content="https://software.mocosn.in/icon.gif" />
+
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="header glass">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img src="icon.gif" alt="MocoStore" class="logo-icon" />
+        <span class="logo-text">Moco<span>Store</span></span>
+      </a>
+      <nav class="nav">
+        <ul class="nav-list" id="navList">
+          <li class="nav-drawer-header">
+            <div class="logo">
+              <img src="icon.gif" alt="MocoStore" class="logo-icon" />
+              <span class="logo-text">Moco<span>Store</span></span>
+            </div>
+            <button class="nav-close-btn" id="navCloseBtn" aria-label="Close menu">
+              <i class="fas fa-times"></i>
+            </button>
+          </li>
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="apps.html"><i class="fas fa-th-large"></i> All Apps</a></li>
+          <li><a href="upload.html"><i class="fas fa-plus-circle"></i> List Your App</a></li>
+          <li><a href="bugreport.html" class="active"><i class="fas fa-bug"></i> Bug Report</a></li>
+        </ul>
+        <div class="nav-search">
+          <input type="text" id="searchInput" placeholder="Search apps..." />
+          <button id="searchBtn" aria-label="Search"><i class="fas fa-search"></i></button>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+      </nav>
+    </div>
+  </header>
+  <div class="nav-backdrop" id="navBackdrop"></div>
+
+  <!-- ====== BUG REPORT FORM ====== -->
+  <main class="section">
+    <div class="container">
+      <div class="upload-container">
+        <div class="bug-page-header">
+          <div>
+            <h2><i class="fas fa-bug"></i> Report a Bug</h2>
+            <p class="upload-subtitle" style="margin-bottom:0;">Found a broken download link, wrong app details, or a site issue? Let us know below.</p>
+          </div>
+          <a href="bugreports.html" class="btn-pill-sm">
+            <i class="fas fa-eye"></i> Preview Bug Reports
+          </a>
+        </div>
+
+        <form id="bugReportForm" class="upload-form">
+          <div class="form-group">
+            <label for="bugTitle"><i class="fas fa-heading"></i> Issue Summary *</label>
+            <input type="text" id="bugTitle" placeholder="Short summary of the bug or issue" maxlength="120" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bugType"><i class="fas fa-tag"></i> Issue Type *</label>
+              <select id="bugType" required>
+                <option value="">Select issue type</option>
+                <option value="broken-link">Broken Download / APK Link</option>
+                <option value="app-info">Wrong App Info / Listing</option>
+                <option value="ui-bug">UI / Layout Bug</option>
+                <option value="search-filter">Search / Filter Issue</option>
+                <option value="performance">Slow Loading / Performance</option>
+                <option value="security">Security / Unsafe File Concern</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bugSeverity"><i class="fas fa-exclamation-circle"></i> Severity</label>
+              <select id="bugSeverity">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+                <option value="critical">Critical</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bugAppRef"><i class="fas fa-mobile-alt"></i> Related App (Optional)</label>
+              <input type="text" id="bugAppRef" list="listedAppsDatalist" placeholder="App name or ID (if app-specific)" />
+              <datalist id="listedAppsDatalist"></datalist>
+            </div>
+            <div class="form-group">
+              <label for="bugEnvironment"><i class="fas fa-laptop-code"></i> Device / Browser (Optional)</label>
+              <input type="text" id="bugEnvironment" placeholder="e.g. Android 14 / Chrome" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="bugDescription"><i class="fas fa-align-left"></i> Details &amp; Steps to Reproduce *</label>
+            <textarea id="bugDescription" rows="4" placeholder="Describe what happened, what you expected, and how to reproduce the issue..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="bugReporter"><i class="fas fa-user"></i> Your Name or Email (Optional)</label>
+            <input type="text" id="bugReporter" placeholder="Optional name or email for follow-up" />
+          </div>
+
+          <div id="bugErrorBox" class="access-error-alert" style="display: none;"></div>
+          <div id="bugFallbackCopyWrap" style="display: none;">
+            <button type="button" id="copyBugReportBtn" class="btn btn-secondary">
+              <i class="fas fa-copy"></i> Copy Bug Report Details
+            </button>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="bugSubmitBtn" class="btn btn-primary">
+              <i class="fas fa-paper-plane"></i> Submit Bug Report
+            </button>
+            <button type="reset" id="bugResetBtn" class="btn btn-secondary">
+              <i class="fas fa-redo"></i> Reset
+            </button>
+          </div>
+        </form>
+
+        <!-- Submission Confirmation Card -->
+        <div id="bugSuccessCard" class="access-success-card" style="display: none;">
+          <div class="access-success-header">
+            <div class="access-success-badge"><i class="fas fa-check-circle"></i> Bug Report Submitted!</div>
+            <h3 id="submittedBugTitle">Thank you for helping improve MocoStore</h3>
+            <p class="access-app-id">Reference ID: <code id="bugReportId">-</code></p>
+          </div>
+          <p class="field-hint">Your report has been logged for review. You can submit another report or return to the store.</p>
+          <div class="access-success-actions">
+            <a href="index.html" class="btn btn-secondary">
+              <i class="fas fa-home"></i> Back to Home
+            </a>
+            <a href="bugreports.html" class="btn btn-secondary">
+              <i class="fas fa-eye"></i> Preview Reports
+            </a>
+            <button type="button" id="submitAnotherBugBtn" class="btn btn-primary">
+              <i class="fas fa-plus"></i> Submit Another Report
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="footer glass">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-row">
+          <img src="icon.gif" alt="MocoStore" class="footer-icon" />
+          <span>MocoStore</span>
+        </div>
+        <p>Discover the best Android apps. Download safely &amp; fast.</p>
+        <div class="social-links">
+          <a href="https://mocosn.in" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://mocosn.in" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://mocosn.in" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="apps.html">All Apps</a></li>
+          <li><a href="upload.html">List Your App</a></li>
+          <li><a href="bugreport.html">Bug Report</a></li>
+        </ul>
+      </div>
+      <div class="footer-credit">
+        <p>Developed with ❤️ by <strong>Sachin Patel</strong></p>
+        <p>EC(VLSI), Bihar Engineering University, Patna</p>
+        <p>&copy; 2026 MocoStore. MIT License</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <!-- Custom JS -->
+  <script src="js/firebase.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/bugreport.js"></script>
+
+</body>
+
+</html>

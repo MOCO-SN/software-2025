@@ -1,0 +1,123 @@
+{
+  "rules": {
+    "sliders": {
+      ".read": true,
+      ".write": "auth != null && root.child('admins').child(auth.uid).child('role').val() == 'admin'",
+      "$sliderId": {
+        ".validate": "newData.hasChildren(['imageUrl', 'active', 'position'])",
+        "imageUrl": {
+          ".validate": "newData.isString()"
+        },
+        "active": {
+          ".validate": "newData.isBoolean()"
+        },
+        "position": {
+          ".validate": "newData.isNumber()"
+        }
+      }
+    },
+
+    "updates": {
+      ".read": true,
+      ".write": "auth != null && root.child('admins').child(auth.uid).child('role').val() == 'admin'"
+    },
+
+    "admins": {
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid",
+        ".write": false
+      }
+    },
+
+    "apps": {
+      ".read": true,
+      ".write": true,
+      "$appId": {
+        ".validate": "newData.hasChildren(['name', 'description', 'iconUrl', 'apkUrl'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "description": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "iconUrl": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "apkUrl": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "category": {
+          ".validate": "newData.isString()"
+        },
+        "developer": {
+          ".validate": "newData.isString()"
+        },
+        "version": {
+          ".validate": "newData.isString()"
+        },
+        "size": {
+          ".validate": "newData.isString()"
+        },
+        "views": {
+          ".validate": "newData.isNumber()"
+        },
+        "likes": {
+          ".validate": "newData.isNumber()"
+        },
+        "accessCodeHash": {
+          ".validate": "newData.isString() && newData.val().length == 64"
+        },
+        "createdAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "updatedAt": {
+          ".validate": "newData.isNumber()"
+        }
+      }
+    },
+
+    "bugReports": {
+      ".read": true,
+      ".write": true,
+      "$reportId": {
+        ".validate": "newData.hasChildren(['title', 'type', 'description', 'status'])",
+        "title": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 150"
+        },
+        "type": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "severity": {
+          ".validate": "newData.isString() && (newData.val() == 'low' || newData.val() == 'medium' || newData.val() == 'high' || newData.val() == 'critical')"
+        },
+        "appRef": {
+          ".validate": "newData.isString()"
+        },
+        "environment": {
+          ".validate": "newData.isString()"
+        },
+        "description": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "reporter": {
+          ".validate": "newData.isString()"
+        },
+        "pageUrl": {
+          ".validate": "newData.isString()"
+        },
+        "userAgent": {
+          ".validate": "newData.isString()"
+        },
+        "status": {
+          ".validate": "newData.isString() && (newData.val() == 'open' || newData.val() == 'closed')"
+        },
+        "createdAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "closedAt": {
+          ".validate": "newData.isNumber()"
+        }
+      }
+    }
+  }
+}

@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
   <!-- Primary Meta Tags -->
-  <title>Upload Your Android App – MocoStore Developer Hub</title>
-  <meta name="title" content="Upload Your Android App – MocoStore Developer Hub" />
+  <title>List Your Android App – MocoStore Developer Hub</title>
+  <meta name="title" content="List Your Android App – MocoStore Developer Hub" />
   <meta name="description" content="Publish and share your Android APK apps with the MocoStore community. Free, fast distribution for independent Android app developers." />
-  <meta name="keywords" content="upload android app, publish apk, android developer, free apk distribution, submit android app, MocoStore" />
+  <meta name="keywords" content="list android app, publish apk, android developer, free apk distribution, submit android app, MocoStore" />
   <meta name="author" content="Sachin Patel" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://software.mocosn.in/upload.html" />
@@ -22,7 +22,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://software.mocosn.in/upload.html" />
-  <meta property="og:title" content="Upload Your Android App – MocoStore Developer Hub" />
+  <meta property="og:title" content="List Your Android App – MocoStore Developer Hub" />
   <meta property="og:description" content="Publish and share your Android APK with the MocoStore community. Free, fast distribution." />
   <meta property="og:image" content="https://software.mocosn.in/icon.gif" />
 
@@ -53,8 +53,9 @@
             </button>
           </li>
           <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-          <li><a href="upload.html" class="active"><i class="fas fa-cloud-upload-alt"></i> Upload</a></li>
-          <li><a href="https://mocosn.in" target="_blank"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="apps.html"><i class="fas fa-th-large"></i> All Apps</a></li>
+          <li><a href="upload.html" class="active"><i class="fas fa-plus-circle"></i> List Your App</a></li>
+          <li><a href="bugreport.html"><i class="fas fa-bug"></i> Bug Report</a></li>
         </ul>
         <div class="nav-search">
           <input type="text" id="searchInput" placeholder="Search apps..." />
@@ -69,79 +70,314 @@
   <section class="section">
     <div class="container">
       <div class="upload-container">
-        <h2><i class="fas fa-cloud-upload-alt"></i> Upload Your App</h2>
-        <p class="upload-subtitle">Share your Android app with the MocoStore community</p>
+        <!-- Mode Switcher Tabs -->
+        <div class="upload-tabs" role="tablist" aria-label="App Management Mode">
+          <button type="button" class="upload-tab-btn active" id="tabUploadBtn" data-mode="upload" role="tab" aria-selected="true">
+            <i class="fas fa-plus-circle"></i> List Your App
+          </button>
+          <button type="button" class="upload-tab-btn" id="tabEditBtn" data-mode="edit" role="tab" aria-selected="false">
+            <i class="fas fa-edit"></i> Edit App
+          </button>
+        </div>
 
-        <form id="uploadForm" class="upload-form">
-          <div class="form-group">
-            <label for="appName"><i class="fas fa-mobile-alt"></i> App Name *</label>
-            <input type="text" id="appName" placeholder="Enter app name" required />
+        <!-- ====== LIST YOUR APP PANEL ====== -->
+        <div id="uploadPanel">
+          <h2><i class="fas fa-plus-circle"></i> List Your App</h2>
+          <p class="upload-subtitle">Share your Android app with the MocoStore community and create an Access Panel Code to manage it later</p>
+
+          <form id="uploadForm" class="upload-form">
+            <div class="form-group">
+              <label for="appName"><i class="fas fa-mobile-alt"></i> App Name *</label>
+              <input type="text" id="appName" placeholder="Enter app name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="appDesc"><i class="fas fa-align-left"></i> Description *</label>
+              <textarea id="appDesc" rows="3" placeholder="Brief description of your app" required></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="appIcon"><i class="fas fa-image"></i> Icon URL *</label>
+                <input type="url" id="appIcon" placeholder="https://example.com/icon.png" required />
+              </div>
+              <div class="form-group">
+                <label for="appApk"><i class="fas fa-file-archive"></i> APK URL *</label>
+                <input type="url" id="appApk" placeholder="https://example.com/app.apk" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="appCategory"><i class="fas fa-tag"></i> Category</label>
+                <select id="appCategory">
+                  <option value="">Select category</option>
+                  <option value="games">Games</option>
+                  <option value="social">Social</option>
+                  <option value="tools">Tools</option>
+                  <option value="entertainment">Entertainment</option>
+                  <option value="education">Education</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="appDeveloper"><i class="fas fa-user"></i> Developer</label>
+                <input type="text" id="appDeveloper" placeholder="Developer name" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="appVersion"><i class="fas fa-code-branch"></i> Version</label>
+                <input type="text" id="appVersion" placeholder="1.0.0" />
+              </div>
+              <div class="form-group">
+                <label for="appSize"><i class="fas fa-weight-hanging"></i> Size</label>
+                <input type="text" id="appSize" placeholder="e.g. 25 MB" />
+              </div>
+            </div>
+
+            <div class="form-group access-code-group">
+              <label for="appAccessCode"><i class="fas fa-key"></i> Create Access Panel Key (Custom or Generated) *</label>
+              <div class="input-with-actions">
+                <div class="prefixed-input">
+                  <span class="key-prefix" aria-hidden="true">SN-</span>
+                  <input type="text" id="appAccessCode" placeholder="Enter custom key (min 4 chars) or click Generate" minlength="4" maxlength="60" autocomplete="off" required />
+                </div>
+                <button type="button" id="toggleUploadCodeBtn" class="btn-inline-icon" title="Show/Hide Key" aria-label="Toggle access key visibility">
+                  <i class="fas fa-eye-slash"></i>
+                </button>
+                <button type="button" id="generateAccessCodeBtn" class="btn-inline-action" title="Generate random SN- key">
+                  <i class="fas fa-magic"></i> Generate
+                </button>
+              </div>
+              <small class="field-hint">Type your own custom key or click Generate — your key always starts with <strong>SN-</strong>. Save it to edit your app later.</small>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" id="uploadSubmitBtn" class="btn btn-primary">
+                <i class="fas fa-check-circle"></i> List Your App
+              </button>
+              <button type="reset" id="uploadResetBtn" class="btn btn-secondary">
+                <i class="fas fa-redo"></i> Reset
+              </button>
+            </div>
+          </form>
+
+          <!-- Upload Success & Access Code Card -->
+          <div id="uploadSuccessCard" class="access-success-card" style="display: none;">
+            <div class="access-success-header">
+              <div class="access-success-badge"><i class="fas fa-check-circle"></i> App Listed Successfully!</div>
+              <h3 id="uploadedAppName">Your App</h3>
+              <p class="access-app-id">App ID: <code id="uploadedAppId">-</code></p>
+            </div>
+            <div class="access-code-display">
+              <span class="access-code-label"><i class="fas fa-key"></i> Your Access Panel Code</span>
+              <div class="access-code-row">
+                <code id="uploadedAccessCode" class="access-code-value">-</code>
+                <button type="button" id="copyAccessCodeBtn" class="btn-copy-code">
+                  <i class="fas fa-copy"></i> Copy Code
+                </button>
+              </div>
+              <small class="field-hint">Keep this code safe — use it under the <strong>Edit App</strong> tab anytime to edit this listing.</small>
+            </div>
+            <div class="access-success-actions">
+              <a id="viewUploadedAppLink" href="index.html" target="_blank" class="btn btn-secondary">
+                <i class="fas fa-external-link-alt"></i> View App Page
+              </a>
+              <button type="button" id="openEditFromSuccessBtn" class="btn btn-primary">
+                <i class="fas fa-edit"></i> Open Access Panel
+              </button>
+              <button type="button" id="uploadAnotherBtn" class="btn btn-secondary">
+                <i class="fas fa-plus"></i> List Another App
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== EDIT APP / ACCESS PANEL ====== -->
+        <div id="editPanel" style="display: none;">
+          <h2><i class="fas fa-shield-alt"></i> Access Panel — Edit App</h2>
+          <p class="upload-subtitle">Enter your Access Panel Code to unlock and edit info of your uploaded or listed apps</p>
+
+          <!-- Step 1: Access Verification -->
+          <div id="accessUnlockSection">
+            <form id="accessUnlockForm" class="upload-form">
+              <div class="form-group">
+                <label for="accessAppFilter"><i class="fas fa-search"></i> App Name or App ID (Optional)</label>
+                <input type="text" id="accessAppFilter" placeholder="Leave blank to find all apps for your code, or enter app name / ID" autocomplete="off" />
+              </div>
+
+              <div class="form-group">
+                <label for="accessCodeInput"><i class="fas fa-key"></i> Access Panel Key *</label>
+                <div class="input-with-actions">
+                  <div class="prefixed-input">
+                    <span class="key-prefix" aria-hidden="true">SN-</span>
+                    <input type="password" id="accessCodeInput" placeholder="Enter your custom key or paste full SN- key" minlength="4" maxlength="64" autocomplete="off" required />
+                  </div>
+                  <button type="button" id="toggleAccessCodeBtn" class="btn-inline-icon" title="Show/Hide Key" aria-label="Toggle access key visibility">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div id="accessErrorBox" class="access-error-alert" style="display: none;"></div>
+
+              <div class="form-actions">
+                <button type="submit" id="unlockPanelBtn" class="btn btn-primary">
+                  <i class="fas fa-unlock-alt"></i> Unlock Access Panel
+                </button>
+              </div>
+            </form>
           </div>
 
-          <div class="form-group">
-            <label for="appDesc"><i class="fas fa-align-left"></i> Description *</label>
-            <textarea id="appDesc" rows="3" placeholder="Brief description of your app" required></textarea>
+          <!-- Step 2: Matched Apps Selector (when multiple apps share a code) -->
+          <div id="matchedAppsSection" style="display: none;">
+            <div class="matched-apps-header">
+              <div>
+                <h3><i class="fas fa-layer-group"></i> Your Unlocked Apps</h3>
+                <p id="matchedAppsSummary" class="upload-subtitle" style="margin-bottom:0;">Select an app to edit its details</p>
+              </div>
+              <button type="button" id="lockPanelFromListBtn" class="btn-pill-sm danger">
+                <i class="fas fa-lock"></i> Lock Panel
+              </button>
+            </div>
+            <div id="matchedAppsList" class="matched-apps-list"></div>
           </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="appIcon"><i class="fas fa-image"></i> Icon URL *</label>
-              <input type="url" id="appIcon" placeholder="https://example.com/icon.png" required />
+          <!-- Step 3: Edit App Form -->
+          <div id="editAppSection" style="display: none;">
+            <div class="editing-app-banner" id="editingAppBanner">
+              <div class="editing-app-identity">
+                <img id="editBannerIcon" src="assets/no_icon.gif" alt="App Icon" onerror="this.onerror=null;this.src='assets/no_icon.gif'" />
+                <div class="editing-app-meta">
+                  <strong id="editBannerName">App Name</strong>
+                  <span id="editBannerId">App ID: -</span>
+                </div>
+              </div>
+              <div class="editing-app-controls">
+                <a id="editViewLiveLink" href="index.html" target="_blank" class="btn-pill-sm">
+                  <i class="fas fa-external-link-alt"></i> View
+                </a>
+                <button type="button" id="switchMatchedAppBtn" class="btn-pill-sm" style="display: none;">
+                  <i class="fas fa-th-list"></i> Switch App
+                </button>
+                <button type="button" id="lockPanelBtn" class="btn-pill-sm danger">
+                  <i class="fas fa-lock"></i> Lock
+                </button>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="appApk"><i class="fas fa-file-archive"></i> APK URL *</label>
-              <input type="url" id="appApk" placeholder="https://example.com/app.apk" required />
-            </div>
-          </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="appCategory"><i class="fas fa-tag"></i> Category</label>
-              <select id="appCategory">
-                <option value="">Select category</option>
-                <option value="games">Games</option>
-                <option value="social">Social</option>
-                <option value="tools">Tools</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="education">Education</option>
-              </select>
+            <div id="editSuccessBanner" class="edit-success-alert" style="display: none;">
+              <span><i class="fas fa-check-circle"></i> App details updated successfully!</span>
+              <a id="editUpdatedLiveLink" href="index.html" target="_blank">View updated listing <i class="fas fa-arrow-right"></i></a>
             </div>
-            <div class="form-group">
-              <label for="appDeveloper"><i class="fas fa-user"></i> Developer</label>
-              <input type="text" id="appDeveloper" placeholder="Developer name" />
-            </div>
-          </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="appVersion"><i class="fas fa-code-branch"></i> Version</label>
-              <input type="text" id="appVersion" placeholder="1.0.0" />
-            </div>
-            <div class="form-group">
-              <label for="appSize"><i class="fas fa-weight-hanging"></i> Size</label>
-              <input type="text" id="appSize" placeholder="e.g. 25 MB" />
-            </div>
-          </div>
+            <form id="editAppForm" class="upload-form">
+              <div class="form-group">
+                <label for="editAppName"><i class="fas fa-mobile-alt"></i> App Name *</label>
+                <input type="text" id="editAppName" placeholder="Enter app name" required />
+              </div>
 
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">
-              <i class="fas fa-upload"></i> Upload App
-            </button>
-            <button type="reset" class="btn btn-secondary">
-              <i class="fas fa-redo"></i> Reset
-            </button>
+              <div class="form-group">
+                <label for="editAppDesc"><i class="fas fa-align-left"></i> Description *</label>
+                <textarea id="editAppDesc" rows="3" placeholder="Brief description of your app" required></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="editAppIcon"><i class="fas fa-image"></i> Icon URL *</label>
+                  <input type="url" id="editAppIcon" placeholder="https://example.com/icon.png" required />
+                </div>
+                <div class="form-group">
+                  <label for="editAppApk"><i class="fas fa-file-archive"></i> APK URL *</label>
+                  <input type="url" id="editAppApk" placeholder="https://example.com/app.apk" required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="editAppCategory"><i class="fas fa-tag"></i> Category</label>
+                  <select id="editAppCategory">
+                    <option value="">Select category</option>
+                    <option value="games">Games</option>
+                    <option value="social">Social</option>
+                    <option value="tools">Tools</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="education">Education</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="editAppDeveloper"><i class="fas fa-user"></i> Developer</label>
+                  <input type="text" id="editAppDeveloper" placeholder="Developer name" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="editAppVersion"><i class="fas fa-code-branch"></i> Version</label>
+                  <input type="text" id="editAppVersion" placeholder="1.0.0" />
+                </div>
+                <div class="form-group">
+                  <label for="editAppSize"><i class="fas fa-weight-hanging"></i> Size</label>
+                  <input type="text" id="editAppSize" placeholder="e.g. 25 MB" />
+                </div>
+              </div>
+
+              <div class="form-group access-code-group">
+                <label for="editAppNewCode"><i class="fas fa-key"></i> Change Access Panel Key (Custom or Generated, Optional)</label>
+                <div class="input-with-actions">
+                  <div class="prefixed-input">
+                    <span class="key-prefix" aria-hidden="true">SN-</span>
+                    <input type="password" id="editAppNewCode" placeholder="Leave blank to keep key, or enter new custom key" minlength="4" maxlength="60" autocomplete="off" />
+                  </div>
+                  <button type="button" id="toggleEditNewCodeBtn" class="btn-inline-icon" title="Show/Hide Key" aria-label="Toggle new access key visibility">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button type="button" id="generateEditCodeBtn" class="btn-inline-action" title="Generate new SN- key">
+                    <i class="fas fa-magic"></i> Generate
+                  </button>
+                </div>
+                <small class="field-hint">Only enter a new custom key (min 4 chars after <strong>SN-</strong>) if you want to replace your current Access Panel Key.</small>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" id="saveEditBtn" class="btn btn-primary">
+                  <i class="fas fa-save"></i> Save Changes
+                </button>
+                <button type="button" id="cancelEditBtn" class="btn btn-secondary">
+                  <i class="fas fa-arrow-left"></i> Cancel
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ====== FOOTER ====== -->
   <footer class="footer glass">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <img src="icon.gif" alt="MocoStore" class="footer-icon" />
-        <span>MocoStore</span>
-        <p>Discover the best Android apps. Download safely & fast.</p>
+        <div class="footer-logo-row">
+          <img src="icon.gif" alt="MocoStore" class="footer-icon" />
+          <span>MocoStore</span>
+        </div>
+        <p>Discover the best Android apps. Download safely &amp; fast.</p>
+        <div class="social-links">
+          <a href="https://mocosn.in" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://mocosn.in" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://mocosn.in" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="apps.html">All Apps</a></li>
+          <li><a href="upload.html">List Your App</a></li>
+          <li><a href="bugreport.html">Bug Report</a></li>
+        </ul>
       </div>
       <div class="footer-credit">
         <p>Developed with ❤️ by <strong>Sachin Patel</strong></p>

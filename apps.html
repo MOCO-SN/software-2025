@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary Meta Tags -->
+  <title>All Android Apps &amp; Games APK – MocoStore</title>
+  <meta name="title" content="All Android Apps & Games APK – MocoStore" />
+  <meta name="description" content="Browse all Android apps and games available on MocoStore. Filter by category, sort by trending or latest, and download verified APKs safely." />
+  <meta name="keywords" content="all android apps, browse apk, android games list, free apk directory, MocoStore" />
+  <meta name="author" content="Sachin Patel" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://software.mocosn.in/apps.html" />
+  <meta name="theme-color" content="#00bcd4" />
+
+  <!-- Favicon & PWA Icons -->
+  <link rel="icon" type="image/jpeg" href="icon.gif" />
+  <link rel="apple-touch-icon" href="icon.gif" />
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://software.mocosn.in/apps.html" />
+  <meta property="og:site_name" content="MocoStore" />
+  <meta property="og:title" content="All Android Apps & Games APK – MocoStore" />
+  <meta property="og:description" content="Browse and search the complete MocoStore directory of Android apps and games." />
+  <meta property="og:image" content="https://software.mocosn.in/icon.gif" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="css/cards.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="header glass">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img src="icon.gif" alt="MocoStore" class="logo-icon" />
+        <span class="logo-text">Moco<span>Store</span></span>
+      </a>
+      <nav class="nav">
+        <ul class="nav-list" id="navList">
+          <li class="nav-drawer-header">
+            <div class="logo">
+              <img src="icon.gif" alt="MocoStore" class="logo-icon" />
+              <span class="logo-text">Moco<span>Store</span></span>
+            </div>
+            <button class="nav-close-btn" id="navCloseBtn" aria-label="Close menu">
+              <i class="fas fa-times"></i>
+            </button>
+          </li>
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="apps.html" class="active"><i class="fas fa-th-large"></i> All Apps</a></li>
+          <li><a href="upload.html"><i class="fas fa-plus-circle"></i> List Your App</a></li>
+          <li><a href="bugreport.html"><i class="fas fa-bug"></i> Bug Report</a></li>
+        </ul>
+        <div class="nav-search">
+          <input type="text" id="searchInput" placeholder="Search all apps..." />
+          <button id="searchBtn" aria-label="Search"><i class="fas fa-search"></i></button>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+      </nav>
+    </div>
+  </header>
+  <div class="nav-backdrop" id="navBackdrop"></div>
+
+  <!-- ====== ALL APPS DIRECTORY ====== -->
+  <main class="section">
+    <div class="container">
+
+      <!-- Page Header & Controls -->
+      <div class="all-apps-toolbar">
+        <div class="all-apps-heading">
+          <h1><i class="fas fa-th-large"></i> <span id="allAppsTitle">All Apps</span></h1>
+          <span class="apps-count-pill" id="appsCountBadge">Loading...</span>
+        </div>
+
+        <div class="all-apps-actions">
+          <div class="sort-control">
+            <label for="sortSelect"><i class="fas fa-sort-amount-down"></i> Sort:</label>
+            <select id="sortSelect">
+              <option value="latest">Latest First</option>
+              <option value="trending">Most Popular</option>
+              <option value="likes">Most Liked</option>
+              <option value="az">Name (A–Z)</option>
+            </select>
+          </div>
+          <a href="upload.html" class="btn-pill-sm primary">
+            <i class="fas fa-plus"></i> List Your App
+          </a>
+        </div>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="all-apps-filters">
+        <div class="category-filter" id="categoryFilter">
+          <button class="cat-btn active" data-category="all">All</button>
+          <button class="cat-btn" data-category="games">Games</button>
+          <button class="cat-btn" data-category="social">Social</button>
+          <button class="cat-btn" data-category="tools">Tools</button>
+          <button class="cat-btn" data-category="entertainment">Entertainment</button>
+          <button class="cat-btn" data-category="education">Education</button>
+        </div>
+        <button type="button" id="clearFiltersBtn" class="btn-pill-sm" style="display: none;">
+          <i class="fas fa-times"></i> Clear Filters
+        </button>
+      </div>
+
+      <!-- Apps Grid -->
+      <div class="app-grid" id="allAppsGrid">
+        <!-- skeleton / cards injected by JS -->
+      </div>
+
+      <!-- Load More -->
+      <div class="load-more-wrap" id="loadMoreWrap" style="display: none;">
+        <button type="button" id="loadMoreBtn" class="btn btn-secondary load-more-btn">
+          <i class="fas fa-chevron-down"></i> Load More Apps
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="footer glass">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-row">
+          <img src="icon.gif" alt="MocoStore" class="footer-icon" />
+          <span>MocoStore</span>
+        </div>
+        <p>Discover the best Android apps. Download safely &amp; fast.</p>
+        <div class="social-links">
+          <a href="https://mocosn.in" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://mocosn.in" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://mocosn.in" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="apps.html">All Apps</a></li>
+          <li><a href="upload.html">List Your App</a></li>
+          <li><a href="bugreport.html">Bug Report</a></li>
+        </ul>
+      </div>
+      <div class="footer-credit">
+        <p>Developed with ❤️ by <strong>Sachin Patel</strong></p>
+        <p>EC(VLSI), Bihar Engineering University, Patna</p>
+        <p>&copy; 2026 MocoStore. MIT License</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+
+  <!-- Custom JS -->
+  <script src="js/firebase.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/all-apps.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>

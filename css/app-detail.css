@@ -69,7 +69,6 @@
   object-fit: cover;
   flex-shrink: 0;
   box-shadow: 0 10px 25px rgba(0, 188, 212, 0.2);
-  border: 2px solid rgba(0, 188, 212, 0.25);
   background: #f0fafa;
 }
 
