@@ -133,6 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const matchedAppsSection = document.getElementById('matchedAppsSection');
   const matchedAppsSummary = document.getElementById('matchedAppsSummary');
+  const matchedAppSelect = document.getElementById('matchedAppSelect');
+  const editSelectedAppBtn = document.getElementById('editSelectedAppBtn');
   const matchedAppsList = document.getElementById('matchedAppsList');
   const lockPanelFromListBtn = document.getElementById('lockPanelFromListBtn');
 
@@ -140,11 +142,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const editBannerIcon = document.getElementById('editBannerIcon');
   const editBannerName = document.getElementById('editBannerName');
   const editBannerId = document.getElementById('editBannerId');
+  const editAppSwitcher = document.getElementById('editAppSwitcher');
   const editViewLiveLink = document.getElementById('editViewLiveLink');
   const switchMatchedAppBtn = document.getElementById('switchMatchedAppBtn');
   const lockPanelBtn = document.getElementById('lockPanelBtn');
   const editSuccessBanner = document.getElementById('editSuccessBanner');
   const editUpdatedLiveLink = document.getElementById('editUpdatedLiveLink');
+  const editErrorBanner = document.getElementById('editErrorBanner');
 
   const editAppForm = document.getElementById('editAppForm');
   const editAppName = document.getElementById('editAppName');
@@ -156,6 +160,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const editAppVersion = document.getElementById('editAppVersion');
   const editAppSize = document.getElementById('editAppSize');
   const editAppNewCode = document.getElementById('editAppNewCode');
+  const applyKeyToAllWrap = document.getElementById('applyKeyToAllWrap');
+  const applyKeyToAllCheckbox = document.getElementById('applyKeyToAllCheckbox');
+  const applyKeyToAllCount = document.getElementById('applyKeyToAllCount');
   const toggleEditNewCodeBtn = document.getElementById('toggleEditNewCodeBtn');
   const generateEditCodeBtn = document.getElementById('generateEditCodeBtn');
   const saveEditBtn = document.getElementById('saveEditBtn');
@@ -163,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let lastUploadedInfo = null;
   let unlockedApps = [];
-  let activeAccessCodeHash = '';
+  let sessionAccessHashes = new Set();
   let editingAppId = null;
 
   function escapeHtml(value) {
@@ -324,8 +331,8 @@ document.addEventListener('DOMContentLoaded', () => {
     openEditFromSuccessBtn.addEventListener('click', () => {
       switchMode('edit');
       if (lastUploadedInfo) {
-        if (accessAppFilterInput && lastUploadedInfo.id) {
-          accessAppFilterInput.value = lastUploadedInfo.id;
+        if (accessAppFilterInput) {
+          accessAppFilterInput.value = '';
         }
         if (accessCodeInput && lastUploadedInfo.accessCode) {
           accessCodeInput.value = lastUploadedInfo.accessCode;
@@ -347,17 +354,59 @@ document.addEventListener('DOMContentLoaded', () => {
     accessErrorBox.style.display = 'none';
   }
 
+  function showEditError(msg) {
+    if (editErrorBanner) {
+      editErrorBanner.textContent = msg;
+      editErrorBanner.style.display = 'block';
+    }
+    if (typeof showToast === 'function') {
+      showToast(msg);
+    }
+  }
+
+  function clearEditError() {
+    if (!editErrorBanner) return;
+    editErrorBanner.textContent = '';
+    editErrorBanner.style.display = 'none';
+  }
+
   function lockAccessPanel() {
     unlockedApps = [];
-    activeAccessCodeHash = '';
+    sessionAccessHashes = new Set();
     editingAppId = null;
     clearAccessError();
+    clearEditError();
     if (accessCodeInput) accessCodeInput.value = '';
     if (editAppNewCode) editAppNewCode.value = '';
+    if (applyKeyToAllCheckbox) applyKeyToAllCheckbox.checked = false;
+    if (applyKeyToAllWrap) applyKeyToAllWrap.style.display = 'none';
     if (editSuccessBanner) editSuccessBanner.style.display = 'none';
     if (matchedAppsSection) matchedAppsSection.style.display = 'none';
     if (editAppSection) editAppSection.style.display = 'none';
     if (accessUnlockSection) accessUnlockSection.style.display = 'block';
+  }
+
+  function populateAppSelectors() {
+    const optionsHtml = unlockedApps.map(app => {
+      const ver = app.version ? `v${app.version}` : 'v1.0.0';
+      const cat = app.category ? ` • ${app.category}` : '';
+      return `<option value="${escapeHtml(app.id)}">${escapeHtml(app.name || 'Untitled App')} (${escapeHtml(ver)}${escapeHtml(cat)})</option>`;
+    }).join('');
+
+    if (matchedAppSelect) {
+      matchedAppSelect.innerHTML = optionsHtml;
+      if (editingAppId && unlockedApps.some(a => a.id === editingAppId)) {
+        matchedAppSelect.value = editingAppId;
+      }
+    }
+
+    if (editAppSwitcher) {
+      editAppSwitcher.innerHTML = optionsHtml;
+      if (editingAppId && unlockedApps.some(a => a.id === editingAppId)) {
+        editAppSwitcher.value = editingAppId;
+      }
+      editAppSwitcher.style.display = unlockedApps.length > 1 ? 'inline-block' : 'none';
+    }
   }
 
   function renderMatchedAppsList() {
@@ -365,8 +414,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const defaultIcon = 'assets/no_icon.gif';
 
     if (matchedAppsSummary) {
-      matchedAppsSummary.textContent = `${unlockedApps.length} app${unlockedApps.length === 1 ? '' : 's'} unlocked with this Access Panel Code`;
+      matchedAppsSummary.textContent = `${unlockedApps.length} app${unlockedApps.length === 1 ? '' : 's'} unlocked with this Access Panel Key`;
     }
+
+    populateAppSelectors();
 
     matchedAppsList.innerHTML = unlockedApps.map(app => `
       <div class="matched-app-item">
@@ -403,15 +454,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function setSelectValueCaseInsensitive(selectEl, value) {
     if (!selectEl) return;
-    const normalized = (value || '').trim().toLowerCase();
+    Array.from(selectEl.querySelectorAll('option[data-custom-option="true"]')).forEach(opt => opt.remove());
+    const raw = (value || '').trim();
+    const normalized = raw.toLowerCase();
     const matchedOption = Array.from(selectEl.options).find(opt => opt.value.toLowerCase() === normalized);
-    selectEl.value = matchedOption ? matchedOption.value : '';
+    if (matchedOption) {
+      selectEl.value = matchedOption.value;
+    } else if (raw) {
+      const customOpt = document.createElement('option');
+      customOpt.value = raw;
+      customOpt.textContent = raw;
+      customOpt.dataset.customOption = 'true';
+      selectEl.appendChild(customOpt);
+      selectEl.value = raw;
+    } else {
+      selectEl.value = '';
+    }
   }
 
   function openAppEditor(app) {
     if (!app || !editAppSection) return;
     editingAppId = app.id;
     const defaultIcon = 'assets/no_icon.gif';
+
+    clearEditError();
+    if (editSuccessBanner) editSuccessBanner.style.display = 'none';
 
     if (editBannerIcon) editBannerIcon.src = app.iconUrl || defaultIcon;
     if (editBannerName) editBannerName.textContent = app.name || 'Untitled App';
@@ -421,7 +488,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (switchMatchedAppBtn) {
       switchMatchedAppBtn.style.display = unlockedApps.length > 1 ? 'inline-flex' : 'none';
     }
-    if (editSuccessBanner) editSuccessBanner.style.display = 'none';
+    populateAppSelectors();
+
+    if (applyKeyToAllWrap) {
+      applyKeyToAllWrap.style.display = unlockedApps.length > 1 ? 'flex' : 'none';
+    }
+    if (applyKeyToAllCount) {
+      applyKeyToAllCount.textContent = String(unlockedApps.length);
+    }
+    if (applyKeyToAllCheckbox) {
+      applyKeyToAllCheckbox.checked = false;
+    }
 
     if (editAppName) editAppName.value = app.name || '';
     if (editAppDesc) editAppDesc.value = app.description || '';
@@ -441,7 +518,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function unlockAccessPanel() {
     clearAccessError();
     const rawCode = accessCodeInput ? accessCodeInput.value.trim() : '';
-    const suffix = rawCode.replace(/^sn-/i, '');
+    const suffix = rawCode.replace(/^sn-/i, '').trim();
     const filter = accessAppFilterInput ? accessAppFilterInput.value.trim() : '';
 
     if (suffix.length < 4) {
@@ -488,14 +565,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (matches.length === 0) {
           showAccessError(
             filter
-              ? 'No matching app found for that App Name/ID and SN- key.'
+              ? 'No matching app found for that App Name/ID and SN- key. Try clearing the App Name/ID filter.'
               : 'Invalid Access Panel Key, or no listed apps match this SN- key.'
           );
           return;
         }
 
         unlockedApps = matches;
-        activeAccessCodeHash = matches[0].accessCodeHash;
+        sessionAccessHashes = new Set([
+          ...candidateHashes,
+          ...matches.map(item => item.accessCodeHash).filter(Boolean)
+        ]);
 
         if (matches.length === 1) {
           openAppEditor(matches[0]);
@@ -520,6 +600,22 @@ document.addEventListener('DOMContentLoaded', () => {
     accessUnlockForm.addEventListener('submit', (e) => {
       e.preventDefault();
       unlockAccessPanel();
+    });
+  }
+
+  if (editSelectedAppBtn && matchedAppSelect) {
+    editSelectedAppBtn.addEventListener('click', () => {
+      const targetId = matchedAppSelect.value;
+      const found = unlockedApps.find(a => a.id === targetId);
+      if (found) openAppEditor(found);
+    });
+  }
+
+  if (editAppSwitcher) {
+    editAppSwitcher.addEventListener('change', () => {
+      const targetId = editAppSwitcher.value;
+      const found = unlockedApps.find(a => a.id === targetId);
+      if (found) openAppEditor(found);
     });
   }
 
@@ -552,7 +648,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (editAppForm) {
     editAppForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (!editingAppId || !activeAccessCodeHash) {
+      clearEditError();
+      if (editSuccessBanner) editSuccessBanner.style.display = 'none';
+
+      if (!editingAppId || sessionAccessHashes.size === 0) {
         lockAccessPanel();
         return;
       }
@@ -565,20 +664,33 @@ document.addEventListener('DOMContentLoaded', () => {
       const developer = editAppDeveloper ? editAppDeveloper.value.trim() : '';
       const version = editAppVersion ? editAppVersion.value.trim() : '';
       const size = editAppSize ? editAppSize.value.trim() : '';
-      const newCodeSuffix = editAppNewCode ? editAppNewCode.value.trim().replace(/^sn-/i, '') : '';
+      const newCodeSuffix = editAppNewCode ? editAppNewCode.value.trim().replace(/^sn-/i, '').trim() : '';
+      const applyKeyToAll = Boolean(newCodeSuffix && applyKeyToAllCheckbox && applyKeyToAllCheckbox.checked);
 
-      if (!name || !description || !iconUrl || !apkUrl) {
-        if (typeof showToast === 'function') {
-          showToast('Please fill Name, Description, Icon URL, and APK URL.');
-        }
+      if (!name) {
+        showEditError('Please enter the App Name.');
+        editAppName?.focus();
+        return;
+      }
+      if (!description) {
+        showEditError('Please enter the App Description.');
+        editAppDesc?.focus();
+        return;
+      }
+      if (!iconUrl) {
+        showEditError('Please enter the Icon URL.');
+        editAppIcon?.focus();
+        return;
+      }
+      if (!apkUrl) {
+        showEditError('Please enter the APK URL.');
+        editAppApk?.focus();
         return;
       }
 
       if (newCodeSuffix && newCodeSuffix.length < 4) {
-        if (typeof showToast === 'function') {
-          showToast('New custom key after SN- must be at least 4 characters.');
-        }
-        editAppNewCode.focus();
+        showEditError('New custom key after SN- must be at least 4 characters.');
+        editAppNewCode?.focus();
         return;
       }
 
@@ -588,14 +700,22 @@ document.addEventListener('DOMContentLoaded', () => {
         saveEditBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
       }
 
+      const editingApp = unlockedApps.find(item => item.id === editingAppId);
+      const expectedHash = editingApp ? editingApp.accessCodeHash : '';
       const targetRef = appsRef.child(editingAppId);
+
       targetRef.once('value')
         .then((snapshot) => {
           const current = snapshot.val();
-          if (!current || current.accessCodeHash !== activeAccessCodeHash) {
+          if (
+            !current ||
+            !current.accessCodeHash ||
+            (current.accessCodeHash !== expectedHash && !sessionAccessHashes.has(current.accessCodeHash))
+          ) {
             throw new Error('Access Panel session is no longer valid for this app.');
           }
 
+          const now = Date.now();
           const updates = {
             name,
             description,
@@ -605,36 +725,59 @@ document.addEventListener('DOMContentLoaded', () => {
             developer,
             version,
             size,
-            updatedAt: Date.now()
+            updatedAt: now
           };
 
-          let nextHash = activeAccessCodeHash;
+          let nextHash = null;
           if (newCodeSuffix) {
             nextHash = window.hashAccessCode(`SN-${newCodeSuffix}`);
             updates.accessCodeHash = nextHash;
           }
 
-          return targetRef.update(updates).then(() => ({ updates, nextHash }));
+          return targetRef.update(updates).then(() => {
+            if (nextHash && applyKeyToAll && unlockedApps.length > 1) {
+              const otherApps = unlockedApps.filter(item => item.id !== editingAppId);
+              return Promise.all(
+                otherApps.map(item =>
+                  appsRef.child(item.id).update({
+                    accessCodeHash: nextHash,
+                    updatedAt: now
+                  })
+                )
+              ).then(() => ({ updates, nextHash, updatedAllKeys: true }));
+            }
+            return { updates, nextHash, updatedAllKeys: false };
+          });
         })
-        .then(({ updates, nextHash }) => {
-          activeAccessCodeHash = nextHash;
+        .then(({ updates, nextHash, updatedAllKeys }) => {
+          if (nextHash) {
+            sessionAccessHashes.add(nextHash);
+          }
+
           unlockedApps = unlockedApps.map(item => {
-            if (item.id !== editingAppId) return item;
-            return { ...item, ...updates };
+            if (item.id === editingAppId) {
+              return { ...item, ...updates };
+            }
+            if (updatedAllKeys && nextHash) {
+              return { ...item, accessCodeHash: nextHash, updatedAt: updates.updatedAt };
+            }
+            return item;
           });
 
           if (editBannerName) editBannerName.textContent = updates.name;
           if (editBannerIcon) editBannerIcon.src = updates.iconUrl || 'assets/no_icon.gif';
+          populateAppSelectors();
           if (editAppNewCode) editAppNewCode.value = '';
+          if (applyKeyToAllCheckbox) applyKeyToAllCheckbox.checked = false;
           if (editSuccessBanner) editSuccessBanner.style.display = 'flex';
           if (typeof showToast === 'function') {
-            showToast('App details updated successfully!');
+            showToast(updatedAllKeys
+              ? 'App details & shared Access Panel Key updated for all unlocked apps!'
+              : 'App details updated successfully!');
           }
         })
         .catch((err) => {
-          if (typeof showToast === 'function') {
-            showToast('Error updating app: ' + err.message);
-          }
+          showEditError('Error updating app: ' + err.message);
         })
         .finally(() => {
           if (saveEditBtn) {

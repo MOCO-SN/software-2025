@@ -471,6 +471,15 @@
     flex-wrap: wrap;
   }
 
+  .matched-app-selector-controls {
+    flex-direction: column;
+  }
+
+  .edit-app-switcher {
+    width: 100%;
+    max-width: 100%;
+  }
+
   .input-with-actions input,
   .prefixed-input {
     flex: 1 1 100%;

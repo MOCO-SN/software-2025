@@ -100,7 +100,7 @@ function uploadApp() {
   const version = document.getElementById('appVersion').value.trim();
   const size = document.getElementById('appSize').value.trim();
   const accessCodeEl = document.getElementById('appAccessCode');
-  const rawSuffix = accessCodeEl ? accessCodeEl.value.trim().replace(/^sn-/i, '') : '';
+  const rawSuffix = accessCodeEl ? accessCodeEl.value.trim().replace(/^sn-/i, '').trim() : '';
   const accessCode = formatSnKey(rawSuffix);
 
   if (!name || !desc || !icon || !apkUrl) {

@@ -1146,6 +1146,85 @@ body.nav-open {
   gap: 12px;
 }
 
+.matched-app-selector-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 188, 212, 0.05);
+  border: 1px solid rgba(0, 188, 212, 0.2);
+  margin-bottom: 14px;
+}
+
+.matched-app-selector-bar label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.matched-app-selector-bar label i {
+  color: var(--accent);
+}
+
+.matched-app-selector-controls {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.matched-app-selector-controls select,
+.edit-app-switcher {
+  background: #ffffff;
+  border: 1px solid rgba(0, 188, 212, 0.24);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  color: var(--text-primary);
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  outline: none;
+  min-width: 0;
+}
+
+.matched-app-selector-controls select {
+  flex: 1;
+}
+
+.edit-app-switcher {
+  max-width: 220px;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.matched-app-selector-controls select:focus,
+.edit-app-switcher:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.14);
+}
+
+.apply-all-key-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--text-primary);
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+.apply-all-key-check input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
 .matched-app-item {
   display: flex;
   align-items: center;
